@@ -1,5 +1,4 @@
 import java.util.Random;
-
 /*
  *Lingli Zou
  *Mr. Levin Pd.2 
@@ -9,29 +8,19 @@ public class LZouBot
 {
 	//emotion can alter the way our bot responds. Emotion can become more negative or positive over time.
 	int emotion = 0;
-	/**
-	 * Get a default greeting 	
-	 * @return a greeting
-	 */	
+
 	public String getGreeting()
 	{
 		return "Hey, How are you feeling today";
 	}
-	
-	/**
-	 * Gives a response to a user statement
-	 * 
-	 * @param statement
-	 *            the user statement
-	 * @return a response based on the rules given
-	 */
+
 	public String getResponse(String statement)
 	{
 		String response = "";
 		
 		if (statement.length() == 0)
 		{
-			response = "Say something, please.";
+			response = "What happened?";
 		}
 
 		else if (findKeyword(statement, "sad") >= 0)
@@ -43,15 +32,25 @@ public class LZouBot
 		else if (findKeyword(statement, "I just broke up") >= 0)
 		{
 			response = "Everything will get better, trust me.";
-			emotion--;
+					emotion--;
+		}
+
+		else if (findKeyword(statement, "Thank you") >= 0)
+		{
+			response = "I will always be here for you!";
+					emotion++;
 		}
 
 		// Response transforming I want to statement
-		else if (findKeyword(statement, "I want to", 0) >= 0)
+		else if (findKeyword(statement, "I feel", 0) >= 0)
 		{
 			response = transformIWantToStatement(statement);
 		}
 		else if (findKeyword(statement, "I want",0) >= 0)
+		{
+			response = transformIWantStatement(statement);
+		}	
+		else if (findKeyword(statement, "I wish",0) >= 0)
 		{
 			response = transformIWantStatement(statement);
 		}	
@@ -80,9 +79,9 @@ public class LZouBot
 			statement = statement.substring(0, statement
 					.length() - 1);
 		}
-		int psn = findKeyword (statement, "I want to", 0);
+		int psn = findKeyword (statement, "I feel", 0);
 		String restOfStatement = statement.substring(psn + 9).trim();
-		return "Why do you want to " + restOfStatement + "?";
+		return "Why do you feel" + restOfStatement + "?";
 	}
 
 	
@@ -126,7 +125,6 @@ public class LZouBot
 			statement = statement.substring(0, statement
 					.length() - 1);
 		}
-		
 		int psnOfI = findKeyword (statement, "I", 0);
 		int psnOfYou = findKeyword (statement, "you", psnOfI);
 		
@@ -229,20 +227,26 @@ public class LZouBot
 		}
 		if (emotion < 0)
 		{	
-			return randomAngryResponses [r.nextInt(randomAngryResponses.length)];
+			return randomSadResponses [r.nextInt(randomSadResponses.length)];
 		}	
 		return randomHappyResponses [r.nextInt(randomHappyResponses.length)];
 	}
 	
-	private String [] randomNeutralResponses = {"Interesting, tell me more",
-			"Hmmm.",
-			"Do you really think so?",
-			"You don't say.",
-			"It's all boolean to me.",
-			"So, would you like to go for a walk?",
-			"Could you say that again?"
+	private String [] randomNeutralResponses = {"Tell me more.",
+												"I see.",
+												"What can you change about it?",
+												"Take a moment to refresh your mind.",
+												"Is that what you really think?",
+												"What do you think?",
+												"Why do you feel this way?"
 	};
-	private String [] randomAngryResponses = {"Bahumbug.", "Harumph", "The rage consumes me!"};
-	private String [] randomHappyResponses = {"H A P P Y, what's that spell?", "Today is a good day", "You make me feel like a brand new pair of shoes."};
+	private String [] randomSadResponses = {"Don't say that!", 
+											"You will be fine", 
+											"That is not true!", 
+											":("};
+	private String [] randomHappyResponses = {"I am so glad you feel this way!", 
+											"Always Smile :)", 
+											"When you can't look at the bright side, I will sit with you in dark!",
+											"Every day is a new day! Tomorrow will be better!"};
 	
 }
