@@ -1,12 +1,11 @@
 import java.util.Random;
 
-/**
- * A program to carry on conversations with a human user.
- * This version:
- * @author Mr. Levin
- * @version September 2017
+/*
+ *Lingli Zou
+ *Mr. Levin Pd.2 
+ *ChatBot Project
  */
-public class ChatBotLevin2
+public class LZouBot
 {
 	//emotion can alter the way our bot responds. Emotion can become more negative or positive over time.
 	int emotion = 0;
@@ -16,7 +15,7 @@ public class ChatBotLevin2
 	 */	
 	public String getGreeting()
 	{
-		return "Hi, what is up?";
+		return "Hey, How are you feeling today";
 	}
 	
 	/**
@@ -35,16 +34,16 @@ public class ChatBotLevin2
 			response = "Say something, please.";
 		}
 
-		else if (findKeyword(statement, "no") >= 0)
+		else if (findKeyword(statement, "sad") >= 0)
 		{
-			response = "Why so negative?";
+			response = "Why are you sad?";
                 	emotion--;
 		}
 		
-		else if (findKeyword(statement, "levin") >= 0)
+		else if (findKeyword(statement, "I just broke up") >= 0)
 		{
-			response = "More like LevinTheDream amiright?";
-			emotion++;
+			response = "Everything will get better, trust me.";
+			emotion--;
 		}
 
 		// Response transforming I want to statement
