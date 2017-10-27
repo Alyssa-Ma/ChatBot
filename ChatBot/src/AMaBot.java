@@ -16,7 +16,7 @@ public class AMaBot
 	 */	
 	public String getGreeting()
 	{
-		return "Hi, what is up?";
+		return "Thanks for choosing me! How are you feeling?";
 	}
 	
 	/**
