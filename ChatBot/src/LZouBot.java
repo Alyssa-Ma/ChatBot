@@ -2,16 +2,15 @@ import java.util.Random;
 /*
  *Lingli Zou
  *Mr. Levin Pd.2 
- *ChatBot Project
+ **Relationship Failure Bot
  */
 public class LZouBot
 {
-	//emotion can alter the way our bot responds. Emotion can become more negative or positive over time.
 	int emotion = 0;
 
-	public String getGreeting()
+	public String intial()
 	{
-		return "Hey, How are you feeling today";
+		return "Hey, How are you feeling today?";
 	}
 
 	public String getResponse(String statement)
@@ -232,7 +231,7 @@ public class LZouBot
 		return randomHappyResponses [r.nextInt(randomHappyResponses.length)];
 	}
 	
-	private String [] randomNeutralResponses = {"Tell me more.",
+	private String [] randomNeutralResponses = {"Go on. Tell me more.",
 												"I see.",
 												"What can you change about it?",
 												"Take a moment to refresh your mind.",
