@@ -10,9 +10,16 @@ public class LZouBot
 
 	public String intial()
 	{
-		return "Hey, How are you feeling today?";
+		return "Hey! Welcome to Relationship Failure Bot! "
+				+ "How are you feeling today from 1-10 with 1 being miserable and 10 being the best?";
 	}
-
+	//add numbers as emotions to chatbot
+	
+	public EmotionRank(String statement)
+	{
+		String
+	}
+	
 	public String getResponse(String statement)
 	{
 		String response = "";
@@ -103,7 +110,7 @@ public class LZouBot
 		}
 		int psn = findKeyword (statement, "I want", 0);
 		String restOfStatement = statement.substring(psn + 6).trim();
-		return "Would you really be happy if you had " + restOfStatement + "?";
+		return "Would you really feel better if you had " + restOfStatement + "?";
 	}
 	
 	
@@ -212,11 +219,6 @@ public class LZouBot
 	}
 	
 
-
-	/**
-	 * Pick a default response to use if nothing else fits.
-	 * @return a non-committal string
-	 */
 	private String getRandomResponse ()
 	{
 		Random r = new Random ();
