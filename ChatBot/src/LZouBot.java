@@ -2,7 +2,7 @@ import java.util.Random;
 /*
  *Lingli Zou
  *Mr. Levin Pd.2 
- **Relationship Failure Bot
+ *Relationship Failure ChatBot
  */
 public class LZouBot
 {
@@ -39,7 +39,13 @@ public class LZouBot
 			response = "I will always be here for you!";
 					emotion++;
 		}
-
+		
+		else if (findKeyword(statement, "wrong") >= 0)
+		{
+			response = "There is nothing wrong with you.";
+					emotion--;
+		}
+		
 		else if (findKeyword(statement, "I feel", 0) >= 0)
 		{
 			response = transformIWantToStatement(statement);
@@ -77,7 +83,7 @@ public class LZouBot
 		}
 		else
 		{
-			response="Sorry please repeat that. Is that a 'yes' or 'no'";
+			response="Sorry please repeat that. Is that a 'yes' or 'no'?";
 		}
 		return response;
 	}
@@ -94,7 +100,7 @@ public class LZouBot
 		}
 		int x = findKeyword (statement, "my", 0);
 		String restOfStatement = statement.substring(x + 9).trim();
-		return "How would" + restOfStatement + "feel if they saw you like this?";
+		return "How would your" + restOfStatement + "feel if they saw you like this?";
 	}
 	
 	private String transformIWantToStatement(String statement)
@@ -243,18 +249,19 @@ public class LZouBot
 												"Take a moment to refresh your mind.",
 												"Is that what you really think?",
 												"What do you think?",
-												"Why do you feel this way?"
-	};
+												"Let it out."
+												};
 	private String [] randomSadResponses = {"Don't say that!", 
 											"You will be fine", 
 											"That is not true!", 
 											":(",
 											"Don't lose hope.",
-											"I promise you that tomorrow will be better",
 											};
 	private String [] randomHappyResponses = {"I am so glad you feel this way!", 
 											"Always Smile :)", 
+											"You will be alright",
+											"I promise you that tomorrow will be better",
 											"When you can't look at the bright side, I will sit with you in dark!",
-											"Every day is a new day! Tomorrow will be better!"};
+											"Every day is a new day!"};
 	
 }
