@@ -10,23 +10,16 @@ public class LZouBot
 
 	public String intial()
 	{
-		return "Hey! Welcome to Relationship Failure Bot! "
-				+ "How are you feeling today from 1-10 with 1 being miserable and 10 being the best?";
+		return "Hey! Welcome to the Relationship Bot! ";
 	}
-	//add numbers as emotions to chatbot
-	
-	public EmotionRank(String statement)
-	{
-		String
-	}
-	
+
 	public String getResponse(String statement)
 	{
 		String response = "";
 		
 		if (statement.length() == 0)
 		{
-			response = "What happened?";
+			response = "Please tell me what happened so I can help you.";
 		}
 
 		else if (findKeyword(statement, "sad") >= 0)
@@ -35,19 +28,18 @@ public class LZouBot
                 	emotion--;
 		}
 		
-		else if (findKeyword(statement, "I just broke up") >= 0)
+		else if (findKeyword(statement, "broke up") >= 0)
 		{
 			response = "Everything will get better, trust me.";
 					emotion--;
 		}
 
-		else if (findKeyword(statement, "Thank you") >= 0)
+		else if (findKeyword(statement, "thank") >= 0)
 		{
 			response = "I will always be here for you!";
 					emotion++;
 		}
 
-		// Response transforming I want to statement
 		else if (findKeyword(statement, "I feel", 0) >= 0)
 		{
 			response = transformIWantToStatement(statement);
@@ -67,16 +59,31 @@ public class LZouBot
 		
 		return response;
 	}
-	
-	/**
-	 * Take a statement with "I want to <something>." and transform it into 
-	 * "Why do you want to <something>?"
-	 * @param statement the user statement, assumed to contain "I want to"
-	 * @return the transformed statement
-	 */
-	private String transformIWantToStatement(String statement)
+
+	private String newTopic(String statement)
 	{
-		//  Remove the final period, if there is one
+		String response="";
+		if(statement.length()<4)
+		{
+			response="Let's take a step back. Is there other people that you cared about in your life?";
+		}
+		if(statement.equals("yes"))
+		{
+			response="Who may they be?";
+		}
+		if(statement.equals("no"))
+		{
+			response="Is there anyone that cares about you? Your family, friends, relatives, teachers, pets?";
+		}
+		else
+		{
+			response="Sorry please repeat that. Is that a 'yes' or 'no'";
+		}
+		return response;
+	}
+	
+	private String otherSupports(String statement)
+	{
 		statement = statement.trim();
 		String lastChar = statement.substring(statement
 				.length() - 1);
@@ -85,21 +92,28 @@ public class LZouBot
 			statement = statement.substring(0, statement
 					.length() - 1);
 		}
-		int psn = findKeyword (statement, "I feel", 0);
-		String restOfStatement = statement.substring(psn + 9).trim();
+		int x = findKeyword (statement, "my", 0);
+		String restOfStatement = statement.substring(x + 9).trim();
+		return "How would" + restOfStatement + "feel if they saw you like this?";
+	}
+	
+	private String transformIWantToStatement(String statement)
+	{
+		statement = statement.trim();
+		String lastChar = statement.substring(statement
+				.length() - 1);
+		if (lastChar.equals("."))
+		{
+			statement = statement.substring(0, statement
+					.length() - 1);
+		}
+		int x = findKeyword (statement, "I feel", 0);
+		String restOfStatement = statement.substring(x + 9).trim();
 		return "Why do you feel" + restOfStatement + "?";
 	}
 
-	
-	/**
-	 * Take a statement with "I want <something>." and transform it into 
-	 * "Would you really be happy if you had <something>?"
-	 * @param statement the user statement, assumed to contain "I want"
-	 * @return the transformed statement
-	 */
 	private String transformIWantStatement(String statement)
 	{
-		//  Remove the final period, if there is one
 		statement = statement.trim();
 		String lastChar = statement.substring(statement
 				.length() - 1);
@@ -108,21 +122,13 @@ public class LZouBot
 			statement = statement.substring(0, statement
 					.length() - 1);
 		}
-		int psn = findKeyword (statement, "I want", 0);
-		String restOfStatement = statement.substring(psn + 6).trim();
-		return "Would you really feel better if you had " + restOfStatement + "?";
+		int x = findKeyword (statement, "I want", 0);
+		String restOfStatement = statement.substring(x + 6).trim();
+		return "Are you sure you will be happier if you had" + restOfStatement + "?";
 	}
 	
-	
-	/**
-	 * Take a statement with "I <something> you" and transform it into 
-	 * "Why do you <something> me?"
-	 * @param statement the user statement, assumed to contain "I" followed by "you"
-	 * @return the transformed statement
-	 */
 	private String transformIYouStatement(String statement)
 	{
-		//  Remove the final period, if there is one
 		statement = statement.trim();
 		String lastChar = statement.substring(statement
 				.length() - 1);
@@ -131,14 +137,12 @@ public class LZouBot
 			statement = statement.substring(0, statement
 					.length() - 1);
 		}
-		int psnOfI = findKeyword (statement, "I", 0);
-		int psnOfYou = findKeyword (statement, "you", psnOfI);
+		int xOfI = findKeyword (statement, "I", 0);
+		int xOfYou = findKeyword (statement, "you", xOfI);
 		
-		String restOfStatement = statement.substring(psnOfI + 1, psnOfYou).trim();
+		String restOfStatement = statement.substring(xOfI + 1, xOfYou).trim();
 		return "Why do you " + restOfStatement + " me?";
 	}
-	
-
 	
 	
 	/**
@@ -244,7 +248,10 @@ public class LZouBot
 	private String [] randomSadResponses = {"Don't say that!", 
 											"You will be fine", 
 											"That is not true!", 
-											":("};
+											":(",
+											"Don't lose hope.",
+											"I promise you that tomorrow will be better",
+											};
 	private String [] randomHappyResponses = {"I am so glad you feel this way!", 
 											"Always Smile :)", 
 											"When you can't look at the bright side, I will sit with you in dark!",
