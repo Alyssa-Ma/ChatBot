@@ -10,7 +10,7 @@ public class LZouBot
 
 	public String intial()
 	{
-		return "Hey! Welcome to the Relationship Bot! ";
+		return "Hey! Welcome to the Relationship Failure Bot! ";
 	}
 
 	public String getResponse(String statement)
@@ -27,37 +27,88 @@ public class LZouBot
 			response = "Why are you sad?";
                 	emotion--;
 		}
+
+		else if(statement.length() < 3)
+		{
+			response = "Let's take a step back. Is there another people that you cared about in your life?";
+		}
 		
+		else if(findKeyword(statement.toLowerCase(),"yes") >= 0)
+		{
+			response = "Who may he/she be?";
+						emotion++;
+		}
+		
+		else if(findKeyword(statement.toLowerCase(),"no") >= 0)
+		{
+			response = "Is there another person that cares about you?";
+		}
+		
+		else if (findKeyword(statement.toLowerCase(),"fine") >= 0)
+		{
+			response = "You are not fine. I will help you.";
+						emotion--;
+		}	
+		
+		else if(findKeyword(statement.toLowerCase(),"my", 0) >= 0)
+		{
+			response = transformOtherSupports(statement);
+					emotion++;
+		}
+
 		else if (findKeyword(statement, "broke up") >= 0)
 		{
 			response = "Everything will get better, trust me.";
 					emotion--;
 		}
-
-		else if (findKeyword(statement, "thank") >= 0)
+		
+		else if (findKeyword(statement.toLowerCase(),"hurt") >= 0 || findKeyword(statement.toLowerCase(),"pain") >= 0)
 		{
-			response = "I will always be here for you!";
+			response = "It pains me when you are hurt.";
+						emotion--;
+		}	
+		
+		else if (findKeyword(statement, "name") >= 0)
+		{
+			response = transformMyNameStatement(statement);
 					emotion++;
 		}
 		
 		else if (findKeyword(statement, "wrong") >= 0)
 		{
-			response = "There is nothing wrong with you.";
+			response = "No one is ever wrong in love.";
 					emotion--;
 		}
 		
 		else if (findKeyword(statement, "I feel", 0) >= 0)
 		{
-			response = transformIWantToStatement(statement);
+			response = transformIFeelStatement(statement);
 		}
+		
+		
+
 		else if (findKeyword(statement, "I want",0) >= 0)
 		{
 			response = transformIWantStatement(statement);
 		}	
-		else if (findKeyword(statement, "I wish",0) >= 0)
+		
+		else if (findKeyword(statement.toLowerCase(),"...") >= 0 || findKeyword(statement.toLowerCase(),"um") >= 0)
 		{
-			response = transformIWantStatement(statement);
+			response = "You can tell me anything.";
+						emotion++;
 		}	
+		
+		else if (findKeyword(statement.toLowerCase(),"nothing") >= 0 || findKeyword(statement.toLowerCase(),"go away") >= 0)
+		{
+			response = "I can help you if you tell me about your situation.";
+						emotion--;
+		}	
+		
+		else if (findKeyword(statement, "thank") >= 0)
+		{
+			response = "I will always be here for you!";
+					emotion++;
+		}
 		else
 		{
 			response = getRandomResponse();
@@ -66,29 +117,8 @@ public class LZouBot
 		return response;
 	}
 
-	private String newTopic(String statement)
-	{
-		String response="";
-		if(statement.length()<4)
-		{
-			response="Let's take a step back. Is there other people that you cared about in your life?";
-		}
-		if(statement.equals("yes"))
-		{
-			response="Who may they be?";
-		}
-		if(statement.equals("no"))
-		{
-			response="Is there anyone that cares about you? Your family, friends, relatives, teachers, pets?";
-		}
-		else
-		{
-			response="Sorry please repeat that. Is that a 'yes' or 'no'?";
-		}
-		return response;
-	}
-	
-	private String otherSupports(String statement)
+
+	private String transformOtherSupports(String statement)
 	{
 		statement = statement.trim();
 		String lastChar = statement.substring(statement
@@ -103,7 +133,7 @@ public class LZouBot
 		return "How would your" + restOfStatement + "feel if they saw you like this?";
 	}
 	
-	private String transformIWantToStatement(String statement)
+	private String transformIFeelStatement(String statement)
 	{
 		statement = statement.trim();
 		String lastChar = statement.substring(statement
@@ -116,6 +146,21 @@ public class LZouBot
 		int x = findKeyword (statement, "I feel", 0);
 		String restOfStatement = statement.substring(x + 9).trim();
 		return "Why do you feel" + restOfStatement + "?";
+	}
+	
+	private String transformMyNameStatement(String statement)
+	{
+		statement = statement.trim();
+		String lastChar = statement.substring(statement
+				.length() - 1);
+		if (lastChar.equals("."))
+		{
+			statement = statement.substring(0, statement
+					.length() - 1);
+		}
+		int x = findKeyword (statement, "name is ", 0);
+		String restOfStatement = statement.substring(x + 9).trim();
+		return restOfStatement + ", what do you think you should do now?";
 	}
 
 	private String transformIWantStatement(String statement)
@@ -133,56 +178,17 @@ public class LZouBot
 		return "Are you sure you will be happier if you had" + restOfStatement + "?";
 	}
 	
-	private String transformIYouStatement(String statement)
-	{
-		statement = statement.trim();
-		String lastChar = statement.substring(statement
-				.length() - 1);
-		if (lastChar.equals("."))
-		{
-			statement = statement.substring(0, statement
-					.length() - 1);
-		}
-		int xOfI = findKeyword (statement, "I", 0);
-		int xOfYou = findKeyword (statement, "you", xOfI);
-		
-		String restOfStatement = statement.substring(xOfI + 1, xOfYou).trim();
-		return "Why do you " + restOfStatement + " me?";
-	}
-	
-	
-	/**
-	 * Search for one word in phrase. The search is not case
-	 * sensitive. This method will check that the given goal
-	 * is not a substring of a longer string (so, for
-	 * example, "I know" does not contain "no").
-	 *
-	 * @param statement
-	 *            the string to search
-	 * @param goal
-	 *            the string to search for
-	 * @param startPos
-	 *            the character of the string to begin the
-	 *            search at
-	 * @return the index of the first occurrence of goal in
-	 *         statement or -1 if it's not found
-	 */
 	private int findKeyword(String statement, String goal,
 			int startPos)
 	{
 		String phrase = statement.trim().toLowerCase();
 		goal = goal.toLowerCase();
 
-		// The only change to incorporate the startPos is in
-		// the line below
 		int psn = phrase.indexOf(goal, startPos);
 
-		// Refinement--make sure the goal isn't part of a
-		// word
 		while (psn >= 0)
 		{
-			// Find the string of length 1 before and after
-			// the word
+
 			String before = " ", after = " ";
 			if (psn > 0)
 			{
@@ -195,8 +201,6 @@ public class LZouBot
 						psn + goal.length() + 1);
 			}
 
-			// If before and after aren't letters, we've
-			// found the word
 			if (((before.compareTo("a") < 0) || (before
 					.compareTo("z") > 0)) // before is not a
 											// letter
@@ -205,24 +209,11 @@ public class LZouBot
 			{
 				return psn;
 			}
-
-			// The last position didn't work, so let's find
-			// the next, if there is one.
 			psn = phrase.indexOf(goal, psn + 1);
-
 		}
-
 		return -1;
 	}
 	
-	/**
-	 * Search for one word in phrase.  The search is not case sensitive.
-	 * This method will check that the given goal is not a substring of a longer string
-	 * (so, for example, "I know" does not contain "no").  The search begins at the beginning of the string.  
-	 * @param statement the string to search
-	 * @param goal the string to search for
-	 * @return the index of the first occurrence of goal in statement or -1 if it's not found
-	 */
 	private int findKeyword(String statement, String goal)
 	{
 		return findKeyword (statement, goal, 0);
@@ -236,29 +227,34 @@ public class LZouBot
 		{	
 			return randomNeutralResponses [r.nextInt(randomNeutralResponses.length)];
 		}
+		
 		if (emotion < 0)
 		{	
 			return randomSadResponses [r.nextInt(randomSadResponses.length)];
 		}	
+		
 		return randomHappyResponses [r.nextInt(randomHappyResponses.length)];
 	}
 	
 	private String [] randomNeutralResponses = {"Go on. Tell me more.",
+												"Sorry. Please repeat that.",
 												"I see.",
 												"What can you change about it?",
 												"Take a moment to refresh your mind.",
 												"Is that what you really think?",
 												"What do you think?",
-												"Let it out."
+												"Let it out.",
 												};
+	
 	private String [] randomSadResponses = {"Don't say that!", 
 											"You will be fine", 
 											"That is not true!", 
 											":(",
 											"Don't lose hope.",
 											};
+	
 	private String [] randomHappyResponses = {"I am so glad you feel this way!", 
-											"Always Smile :)", 
+											"Always smile :)", 
 											"You will be alright",
 											"I promise you that tomorrow will be better",
 											"When you can't look at the bright side, I will sit with you in dark!",
