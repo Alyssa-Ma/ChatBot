@@ -246,17 +246,19 @@ public class LZouBot
 												};
 	
 	private String [] randomSadResponses = {"Don't say that!", 
-											"Don't worry too much. You will be fine.", 
 											"That is not true!", 
-											"Everything will be alright.",
+											"Everything happens for a reason.",
 											"Don't lose hope.",
-											"You got this."
+											"You got this.",
+											"This too shall pass.",
+											"You will be okay. I promise."
 											};
 	
 	private String [] randomHappyResponses = {"I am so glad you feel this way!", 
 											"Always smile :)", 
 											"You will be alright",
-											"I promise you that tomorrow will be better",
+											"Cheer up. You will be in love again with someone much better.",
+											"Tomorrow will be better",
 											"When you can't look at the bright side, I will sit with you in dark!",
 											"Every day is a new day!"};
 	
