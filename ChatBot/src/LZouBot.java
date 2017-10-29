@@ -242,15 +242,15 @@ public class LZouBot
 												"What can you change about it?",
 												"Take a moment to refresh your mind.",
 												"Is that what you really think?",
-												"What do you think?",
 												"Let it out.",
 												};
 	
 	private String [] randomSadResponses = {"Don't say that!", 
-											"You will be fine", 
+											"Don't worry too much. You will be fine.", 
 											"That is not true!", 
-											":(",
+											"Everything will be alright.",
 											"Don't lose hope.",
+											"You got this."
 											};
 	
 	private String [] randomHappyResponses = {"I am so glad you feel this way!", 
