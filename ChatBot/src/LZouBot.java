@@ -8,7 +8,7 @@ public class LZouBot
 {
 	int emotion = 0;
 
-	public String intial()
+	public String getGreeting()
 	{
 		return "Hey! Welcome to the Relationship Failure Bot! ";
 	}
@@ -17,7 +17,7 @@ public class LZouBot
 	{
 		String response = "";
 		
-		if (statement.length() == 0)
+		if (statement.length() < 2)
 		{
 			response = "Please tell me what happened so I can help you.";
 		}
@@ -28,9 +28,9 @@ public class LZouBot
                 	emotion--;
 		}
 
-		else if(statement.length() < 6)
+		else if(findKeyword(statement.toLowerCase(), "hi")>=0) 
 		{
-			response = "Let's take a step back. Is there another person that you cared about in your life?";
+			response = "Hello! What would you like to talk about today?";
 		}
 		
 		else if(findKeyword(statement.toLowerCase(),"yes") >= 0)
@@ -49,12 +49,6 @@ public class LZouBot
 			response = "You are not fine. I will help you.";
 						emotion--;
 		}	
-		
-		else if(findKeyword(statement.toLowerCase(),"my", 0) >= 0)
-		{
-			response = transformOtherSupports(statement);
-					emotion++;
-		}
 
 		else if (findKeyword(statement, "broke up") >= 0)
 		{
@@ -117,22 +111,6 @@ public class LZouBot
 		return response;
 	}
 
-
-	private String transformOtherSupports(String statement)
-	{
-		statement = statement.trim();
-		String lastChar = statement.substring(statement
-				.length() - 1);
-		if (lastChar.equals("."))
-		{
-			statement = statement.substring(0, statement
-					.length() - 1);
-		}
-		int x = findKeyword (statement, "my", 0);
-		String restOfStatement = statement.substring(x + 9).trim();
-		return "How would your" + restOfStatement + "feel if they saw you like this?";
-	}
-	
 	private String transformIFeelStatement(String statement)
 	{
 		statement = statement.trim();
