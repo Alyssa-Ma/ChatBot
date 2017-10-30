@@ -1,10 +1,9 @@
 import java.util.Random;
 
 /**
- * A program to carry on conversations with a human user.
- * This version:
- * @author Mr. Levin
- * @version September 2017
+ * Chatbot on emotions?
+ * @author Alyssa
+ * vague topic kinda? casual talking???
  */
 public class AMaBot
 {
@@ -32,18 +31,18 @@ public class AMaBot
 		
 		if (statement.length() == 0)
 		{
-			response = "Say something, please.";
+			response = "What's wrong? Are you getting bored?";
 		}
 
 		else if (findKeyword(statement, "no") >= 0)
 		{
-			response = "Why so negative?";
-                	emotion--;
+			response = "Why do you say no?";
+			emotion--;
 		}
 		
-		else if (findKeyword(statement, "levin") >= 0)
+		else if (findKeyword(statement, "happy") >= 0)
 		{
-			response = "More like LevinTheDream amiright?";
+			response = "I'm glad you are. I'm fulfilling my purpose well.";
 			emotion++;
 		}
 
@@ -235,15 +234,15 @@ public class AMaBot
 		return randomHappyResponses [r.nextInt(randomHappyResponses.length)];
 	}
 	
-	private String [] randomNeutralResponses = {"Interesting, tell me more",
-			"Hmmm.",
-			"Do you really think so?",
-			"You don't say.",
-			"It's all boolean to me.",
-			"So, would you like to go for a walk?",
-			"Could you say that again?"
+	private String [] randomNeutralResponses = {"Do you really feel that way?",
+			"I see.",
+			"What else do you want to talk about?",
+			"I understand.",
+			"School is difficult.",
+			"I'm a bit tired, but please continue.",
+			"I wonder..."
 	};
-	private String [] randomAngryResponses = {"Bahumbug.", "Harumph", "The rage consumes me!"};
-	private String [] randomHappyResponses = {"H A P P Y, what's that spell?", "Today is a good day", "You make me feel like a brand new pair of shoes."};
+	private String [] randomAngryResponses = {"Why are you being like this?", "I only wanted to help...", "..."};
+	private String [] randomHappyResponses = {"I'm so glad I could be of use!", "Finally, I'm fulfilling my purpose!", "Haha, I feel a bit light."};
 	
 }
