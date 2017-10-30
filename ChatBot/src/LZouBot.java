@@ -28,9 +28,9 @@ public class LZouBot
                 	emotion--;
 		}
 
-		else if(statement.length() < 3)
+		else if(statement.length() < 6)
 		{
-			response = "Let's take a step back. Is there another people that you cared about in your life?";
+			response = "Let's take a step back. Is there another person that you cared about in your life?";
 		}
 		
 		else if(findKeyword(statement.toLowerCase(),"yes") >= 0)
