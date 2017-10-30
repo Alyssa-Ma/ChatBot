@@ -145,7 +145,7 @@ public class LZouBot
 		}
 		int x = findKeyword (statement, "I feel", 0);
 		String restOfStatement = statement.substring(x + 9).trim();
-		return "Why do you feel" + restOfStatement + "?";
+		return "Why do you feel " + restOfStatement + "?";
 	}
 	
 	private String transformMyNameStatement(String statement)
@@ -175,7 +175,7 @@ public class LZouBot
 		}
 		int x = findKeyword (statement, "I want", 0);
 		String restOfStatement = statement.substring(x + 6).trim();
-		return "Are you sure you will be happier if you had" + restOfStatement + "?";
+		return "Are you sure you will be happier if you had " + restOfStatement + "?";
 	}
 	
 	private int findKeyword(String statement, String goal,
