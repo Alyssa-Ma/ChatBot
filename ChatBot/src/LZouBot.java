@@ -10,7 +10,7 @@ public class LZouBot
 
 	public String getGreeting()
 	{
-		return "Hey! Welcome to the Relationship Failure Bot! ";
+		return "Hey! Welcome to the Relationship Bot! ";
 	}
 
 	public String getResponse(String statement)
