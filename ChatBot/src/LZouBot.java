@@ -28,7 +28,7 @@ public class LZouBot
                 	emotion--;
 		}
 
-		else if(findKeyword(statement.toLowerCase(), "hi")>=0) 
+		else if(findKeyword(statement.toLowerCase(), "hi")>=0 || findKeyword(statement.toLowerCase(),"hello") >= 0)
 		{
 			response = "Hello! What would you like to talk about today?";
 		}
