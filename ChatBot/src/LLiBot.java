@@ -1,161 +1,99 @@
- import java.util.Random;
+import java.util.Random;
 
 /**
  * A program to carry on conversations with a human user.
- * This version:
- * @author Mr. Levin
- * @version September 2017
+ * This version: The really mean and savage chat bot. Talk to it at your own risk.
+ * @author Lily Li
+ * @version October 30, 2017
  */
 public class LLiBot
 {
 	//emotion can alter the way our bot responds. Emotion can become more negative or positive over time.
 	int emotion = 0;
-	/**
-	 * Get a default greeting 	
-	 * @return a greeting
-	 */	
+
 	public String getGreeting()
 	{
-		return "Hi, what is up?";
+		return "Whaddya want? Make it quick! I don't have all day for you!!! DX";
 	}
 	
-	/**
-	 * Gives a response to a user statement
-	 * 
-	 * @param statement
-	 *            the user statement
-	 * @return a response based on the rules given
-	 */
 	public String getResponse(String statement)
 	{
 		String response = "";
+		String[] begPrompt = {"Who","What","Where","When","Why","How"};
 		
 		if (statement.length() == 0)
 		{
-			response = "Say something, please.";
-		}
-
-		else if (findKeyword(statement, "no") >= 0)
-		{
-			response = "Why so negative?";
-                	emotion--;
+			response = "(-_-) If you're not gonna talk, then leave!";
 		}
 		
-		else if (findKeyword(statement, "levin") >= 0)
+		else 
 		{
-			response = "More like LevinTheDream amiright?";
-			emotion++;
-		}
-
-		// Response transforming I want to statement
-		else if (findKeyword(statement, "I want to", 0) >= 0)
-		{
-			response = transformIWantToStatement(statement);
-		}
-		else if (findKeyword(statement, "I want",0) >= 0)
-		{
-			response = transformIWantStatement(statement);
-		}	
-		else
-		{
-			response = getRandomResponse();
+			for(int i = 5; i>=0; i--) {
+				if (findKeyword(statement, begPrompt[i], 0) >= 0)
+				{
+					response = fiveW(statement, i);
+					i=-1;
+				}
+			}
+			if(response=="") {
+				response = getRandomResponse();
+			}
 		}
 		
 		return response;
 	}
 	
-	/**
-	 * Take a statement with "I want to <something>." and transform it into 
-	 * "Why do you want to <something>?"
-	 * @param statement the user statement, assumed to contain "I want to"
-	 * @return the transformed statement
-	 */
-	private String transformIWantToStatement(String statement)
+	private String fiveW(String statement, int i)
 	{
-		//  Remove the final period, if there is one
+		//  Remove the final punctuation mark, if there is one
+		int psn=0;
+		String restOfStatement = "";
 		statement = statement.trim();
-		String lastChar = statement.substring(statement
-				.length() - 1);
-		if (lastChar.equals("."))
+		String lastChar = statement.substring(statement.length() - 1);
+		if (lastChar.equals(".")||lastChar.equals(",")||lastChar.equals("?")||lastChar.equals("!"))
 		{
-			statement = statement.substring(0, statement
-					.length() - 1);
+			statement = statement.substring(0, statement.length() - 1);
 		}
-		int psn = findKeyword (statement, "I want to", 0);
-		String restOfStatement = statement.substring(psn + 9).trim();
-		return "Why do you want to " + restOfStatement + "?";
-	}
-
-	
-	/**
-	 * Take a statement with "I want <something>." and transform it into 
-	 * "Would you really be happy if you had <something>?"
-	 * @param statement the user statement, assumed to contain "I want"
-	 * @return the transformed statement
-	 */
-	private String transformIWantStatement(String statement)
-	{
-		//  Remove the final period, if there is one
-		statement = statement.trim();
-		String lastChar = statement.substring(statement
-				.length() - 1);
-		if (lastChar.equals("."))
-		{
-			statement = statement.substring(0, statement
-					.length() - 1);
+		if (i == 0) {
+			psn = findKeyword (statement, "who", 0);
+			restOfStatement = statement.substring(psn).trim();
+			String[] whoSaidIt = {"Mr. Levin","Lily","Daniel","Alyssa","LingLi"};
+			return "Well who else would it be? Of course it's " + whoSaidIt[Math.abs(emotion) % 5] + "! (o-o) ... Now the question is " + restOfStatement + "?";
 		}
-		int psn = findKeyword (statement, "I want", 0);
-		String restOfStatement = statement.substring(psn + 6).trim();
-		return "Would you really be happy if you had " + restOfStatement + "?";
-	}
-	
-	
-	/**
-	 * Take a statement with "I <something> you" and transform it into 
-	 * "Why do you <something> me?"
-	 * @param statement the user statement, assumed to contain "I" followed by "you"
-	 * @return the transformed statement
-	 */
-	private String transformIYouStatement(String statement)
-	{
-		//  Remove the final period, if there is one
-		statement = statement.trim();
-		String lastChar = statement.substring(statement
-				.length() - 1);
-		if (lastChar.equals("."))
-		{
-			statement = statement.substring(0, statement
-					.length() - 1);
+		else if (i == 1) {
+			psn = findKeyword (statement, "what", 0);
+			restOfStatement = statement.substring(psn).trim();
+			String[] whoSaidIt = {"Mr. Levin","Lily","Daniel","Alyssa","LingLi"};
+			return "Well who else would it be? Of course it's " + whoSaidIt[Math.abs(emotion) % 5] + "! (o-o) ... Now the question is " + restOfStatement + "?";
 		}
-		
-		int psnOfI = findKeyword (statement, "I", 0);
-		int psnOfYou = findKeyword (statement, "you", psnOfI);
-		
-		String restOfStatement = statement.substring(psnOfI + 1, psnOfYou).trim();
-		return "Why do you " + restOfStatement + " me?";
+		else if (i == 2) {
+			psn = findKeyword (statement, "where", 0);
+			restOfStatement = statement.substring(psn).trim();
+			String[] whoSaidIt = {"Mr. Levin","Lily","Daniel","Alyssa","LingLi"};
+			return "Well who else would it be? Of course it's " + whoSaidIt[Math.abs(emotion) % 5] + "! (o-o) ... Now the question is " + restOfStatement + "?";
+		}
+		else if (i == 3) {
+			psn = findKeyword (statement, "when", 0);
+			restOfStatement = statement.substring(psn).trim();
+			String[] whoSaidIt = {"Mr. Levin","Lily","Daniel","Alyssa","LingLi"};
+			return "Well who else would it be? Of course it's " + whoSaidIt[Math.abs(emotion) % 5] + "! (o-o) ... Now the question is " + restOfStatement + "?";
+		}
+		else if (i == 4) {
+			psn = findKeyword (statement, "why", 0);
+			restOfStatement = statement.substring(psn).trim();
+			String[] whoSaidIt = {"Mr. Levin","Lily","Daniel","Alyssa","LingLi"};
+			return "Well who else would it be? Of course it's " + whoSaidIt[Math.abs(emotion) % 5] + "! (o-o) ... Now the question is " + restOfStatement + "?";
+		}
+		else if (i == 5) {
+			psn = findKeyword (statement, "How", 0);
+			restOfStatement = statement.substring(psn).trim();
+			String[] whoSaidIt = {"Mr. Levin","Lily","Daniel","Alyssa","LingLi"};
+			return "Well who else would it be? Of course it's " + whoSaidIt[Math.abs(emotion) % 5] + "! (o-o) ... Now the question is " + restOfStatement + "?";
+		}
+		return statement;
 	}
 	
-
-	
-	
-	/**
-	 * Search for one word in phrase. The search is not case
-	 * sensitive. This method will check that the given goal
-	 * is not a substring of a longer string (so, for
-	 * example, "I know" does not contain "no").
-	 *
-	 * @param statement
-	 *            the string to search
-	 * @param goal
-	 *            the string to search for
-	 * @param startPos
-	 *            the character of the string to begin the
-	 *            search at
-	 * @return the index of the first occurrence of goal in
-	 *         statement or -1 if it's not found
-	 */
-	private int findKeyword(String statement, String goal,
-			int startPos)
+	private int findKeyword(String statement, String goal, int startPos)
 	{
 		String phrase = statement.trim().toLowerCase();
 		goal = goal.toLowerCase();
@@ -202,14 +140,6 @@ public class LLiBot
 		return -1;
 	}
 	
-	/**
-	 * Search for one word in phrase.  The search is not case sensitive.
-	 * This method will check that the given goal is not a substring of a longer string
-	 * (so, for example, "I know" does not contain "no").  The search begins at the beginning of the string.  
-	 * @param statement the string to search
-	 * @param goal the string to search for
-	 * @return the index of the first occurrence of goal in statement or -1 if it's not found
-	 */
 	private int findKeyword(String statement, String goal)
 	{
 		return findKeyword (statement, goal, 0);
