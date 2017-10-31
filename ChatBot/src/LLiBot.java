@@ -8,7 +8,7 @@ import java.util.Random;
  */
 public class LLiBot
 {
-	//emotion can alter the way our bot responds. Emotion can become more negative or positive over time.
+	//sass and emotion can alter the way our bot responds. Emotion can become more negative or positive over time.
 	int emotion = 0;
 
 	public String getGreeting()
