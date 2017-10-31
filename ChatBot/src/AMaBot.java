@@ -107,7 +107,21 @@ public class AMaBot
 		String restOfStatement = statement.substring(psn + 6).trim();
 		return "Would you really be happy if you had " + restOfStatement + "?";
 	}
-	
+	private String transformIhate(String statement)
+	{
+		//  Remove the final period, if there is one
+		statement = statement.trim();
+		String lastChar = statement.substring(statement
+				.length() - 1);
+		if (lastChar.equals("."))
+		{
+			statement = statement.substring(0, statement
+					.length() - 1);
+		}
+		int psn = findKeyword (statement, "I hate", 0);
+		String restOfStatement = statement.substring(psn + 6).trim();
+		return "Why do you hate " + restOfStatement + "?";
+	}
 	
 	/**
 	 * Take a statement with "I <something> you" and transform it into 
@@ -229,7 +243,7 @@ public class AMaBot
 		}
 		if (emotion < 0)
 		{	
-			return randomAngryResponses [r.nextInt(randomAngryResponses.length)];
+			return randomSadResponses [r.nextInt(randomSadResponses.length)];
 		}	
 		return randomHappyResponses [r.nextInt(randomHappyResponses.length)];
 	}
@@ -242,7 +256,7 @@ public class AMaBot
 			"I'm a bit tired, but please continue.",
 			"I wonder..."
 	};
-	private String [] randomAngryResponses = {"Why are you being like this?", "I only wanted to help...", "..."};
+	private String [] randomSadResponses = {"Why are you being like this?", "I only wanted to help...", "..."};
 	private String [] randomHappyResponses = {"I'm so glad I could be of use!", "Finally, I'm fulfilling my purpose!", "Haha, I feel a bit light."};
 	
 }
