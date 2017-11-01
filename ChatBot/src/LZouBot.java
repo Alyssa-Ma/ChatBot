@@ -27,19 +27,21 @@ public class LZouBot
 		{
 			response="Let's play a guessing game to make you feel better. I picked a number from 0-10. Try to guess my number! Type 'ready' when you are ready.";
 					emotion++;
+					if(findKeyword(statement.toLowerCase(), "ready")>=0)
+					{
+									response=String GuessGame(String [] args);
+					}
 		}
-		
-		else if(findKeyword(statement.toLowerCase(), "ready")>=0)
-		{
-			response=String GuessGame(String [] args];
-			
-		}
-		
+
 		else if(findKeyword(statement.toLowerCase(), "ok")>=0 || findKeyword(statement.toLowerCase(),"okay") >= 0)
 		{
-			response="Is there someone else that you care about or someone else that cares about you? "
-					+ "There has to be at least one person.";
+			response="Is there someone else that you care about or someone else that cares about you? ";
+					if(findKeyword(statement.toLowerCase(), "no")>=0)
+					{
+						response="There has to be at least one person.";
+					}
 		}
+		
 		else if (findKeyword(statement, "I am") >= 0)
 		{
 			response = transformIAmStatement(statement);
