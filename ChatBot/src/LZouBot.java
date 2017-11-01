@@ -35,7 +35,11 @@ public class LZouBot
 
 		else if(findKeyword(statement.toLowerCase(), "ok")>=0 || findKeyword(statement.toLowerCase(),"okay") >= 0)
 		{
-			response="Is there someone else that you care about or someone else that cares about you? ";
+			response="Is there someone else that you care about?";
+					if(findKeyword(statement.toLowerCase(), "no")>=0)
+					{
+						response="Is there someone that cares about you?";
+					}
 					if(findKeyword(statement.toLowerCase(), "no")>=0)
 					{
 						response="There has to be at least one person.";
