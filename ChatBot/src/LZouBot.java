@@ -6,11 +6,12 @@ import java.util.Random;
  */
 public class LZouBot
 {
+
 	int emotion = 0;
 
 	public String getGreeting()
 	{
-		return "Welcome to the Relationship Bot! ";
+		return "Welcome to the Breakup Bot! ";
 	}
 
 	public String getResponse(String statement)
@@ -24,23 +25,18 @@ public class LZouBot
 		
 		else if(findKeyword(statement.toLowerCase(), "still")>=0)
 		{
-			response="Let's play a guessing game to make you feel better";
+			response="Let's play a guessing game to make you feel better. I picked a number from 0-10. Try to guess my number! Type 'ready' when you are ready.";
 					emotion++;
-		}
-		
-		else if(findKeyword(statement.toLowerCase(), "game")>=0)
-		{
-			response="I picked a number from 0-10. Try to guess my number!" + GuessGame(String [] args);
-			
 		}
 		
 		else if(findKeyword(statement.toLowerCase(), "ok")>=0 || findKeyword(statement.toLowerCase(),"okay") >= 0)
 		{
-			response="Do you another person that you care about?";
+			response="Is there someone else that you care about or someone else that cares about you? "
+					+ "There has to be at least one person.";
 		}
-		else if (findKeyword(statement, "sad") >= 0)
+		else if (findKeyword(statement, "I am") >= 0)
 		{
-			response = "Why are you sad?";
+			response = transformIAmStatement(statement);
                 	emotion--;
 		}
 		
@@ -58,10 +54,17 @@ public class LZouBot
 		{
 			response=transformOtherSupports(statement);
 		}
+		
 		else if(findKeyword(statement.toLowerCase(),"no") >= 0)
 		{
-			response = "Is there another person that cares about you?";
+			response = "Then don't make them feel this way.";
 						emotion++;
+		}
+		
+		else if(findKeyword(statement.toLowerCase(),"no it won't") >= 0)
+		{
+			response = "That is not true!";
+						emotion--;
 		}
 		
 		else if (findKeyword(statement.toLowerCase(),"fine") >= 0)
@@ -72,7 +75,8 @@ public class LZouBot
 
 		else if (findKeyword(statement, "broke up") >= 0)
 		{
-			response = "Everything will get better, trust me.";
+			response = "Everything will get better."+
+						" Don't say no because it will. Trust me.";
 					emotion--;
 		}
 		
@@ -88,7 +92,7 @@ public class LZouBot
 					emotion--;
 		}
 		
-		else if(findKeyword(statement, "he will")>=0)
+		else if(findKeyword(statement, "will")>=0)
 		{
 			response= transformWillStatement(statement);
 		}
@@ -111,7 +115,7 @@ public class LZouBot
 		
 		else if (findKeyword(statement.toLowerCase(),"nothing") >= 0 || findKeyword(statement.toLowerCase(),"go away") >= 0)
 		{
-			response = "I can help you if you tell me about your situation.";
+			response = "I can't help you if you don't tell me about your situation.";
 						emotion--;
 		}	
 		
@@ -119,6 +123,17 @@ public class LZouBot
 		{
 			response = "I will always be here for you!";
 					emotion++;
+		}
+		
+		else if (findKeyword(statement, "because") >= 0)
+		{
+			response = "Exactly. If you can't smile for yourself, at least smile for that person.";
+					emotion++;
+		}
+		
+		else if(findKeyword(statement, "I love")>=0)
+		{
+			response=transformILoveStatement(statement);
 		}
 		else
 		{
@@ -158,27 +173,6 @@ public class LZouBot
 		return "How would your " + restOfStatement + " feel if your " +restOfStatement +" saw you like this?";
 	}
 	
-	private String GuessGame(String [] args)
-	{
-		int guess;
-		int myNumber=
-				
-		int tries=0;
-		tries++;
-		if(guess<myNumber)
-		{
-			return "Your guess is smaller than my number!";
-		}
-		else if(guess>myNumber)
-		{
-			return "My number is smaller than your guess! Try again.";
-		}
-		else if(guess==myNumber)
-		{
-			return "Congratulations! Your guess is correct!" + "It only took you "+ tries + " tries. Good job!";
-		}
-	}
-	
 	private String transformIWantStatement(String statement)
 	{
 		statement = statement.trim();
@@ -204,9 +198,38 @@ public class LZouBot
 			statement = statement.substring(0, statement
 					.length() - 1);
 		}
-		int x = findKeyword (statement, "he will", 0);
-		String restOfStatement = statement.substring(x + 7).trim();
+		int x = findKeyword (statement, "will", 0);
+		String restOfStatement = statement.substring(x + 4).trim();
 		return "Are you willing to see someone you care about " + restOfStatement + "?";
+	}
+	private String transformILoveStatement(String statement)
+	{
+		statement = statement.trim();
+		String lastChar = statement.substring(statement
+				.length() - 1);
+		if (lastChar.equals("."))
+		{
+			statement = statement.substring(0, statement
+					.length() - 1);
+		}
+		int x = findKeyword (statement, "I love", 0);
+		String restOfStatement = statement.substring(x + 6).trim();
+		return "I understand that you love " + restOfStatement + " but when it does not work out, it might be time to move on.";
+	}
+	
+	private String transformIAmStatement(String statement)
+	{
+		statement = statement.trim();
+		String lastChar = statement.substring(statement
+				.length() - 1);
+		if (lastChar.equals("."))
+		{
+			statement = statement.substring(0, statement
+					.length() - 1);
+		}
+		int x = findKeyword (statement, "I am", 0);
+		String restOfStatement = statement.substring(x + 4).trim();
+		return "Why are you " + restOfStatement + "?";
 	}
 	private int findKeyword(String statement, String goal,
 			int startPos)
@@ -232,8 +255,8 @@ public class LZouBot
 			}
 
 			if (((before.compareTo("a") < 0) || (before
-					.compareTo("z") > 0)) // before is not a
-											// letter
+					.compareTo("z") > 0)) 
+					
 					&& ((after.compareTo("a") < 0) || (after
 							.compareTo("z") > 0)))
 			{
