@@ -141,7 +141,7 @@ public class LLiBot
 				after = phrase.substring(
 						psn + goal.length(),
 						psn + goal.length() + 1);
-			}
+			} 
 
 			// If before and after aren't letters, we've
 			// found the word
