@@ -29,7 +29,7 @@ public class LZouBot
 					emotion++;
 					if(findKeyword(statement.toLowerCase(), "ready")>=0)
 					{
-									response=String GuessGame(String [] args);
+									response=GuessGame();
 					}
 		}
 
@@ -241,25 +241,24 @@ public class LZouBot
 		return "Why are you " + restOfStatement + "?";
 	}
 	
-	private String GuessGame(String [] args)
+	private String GuessGame()
 	{
 		int myNumber=(int)(Math.random()*11);
 		int tries=0;
 		tries++;
-		for(int guess=0; guess<=10; guess++)
+		int guess=0;
+		
+		while(guess != myNumber)
 		if(guess<myNumber)
 		{
-			return "Your guess is smaller than my number!";
+			return "Your guess is smaller than my number! Try again!";
 		}
 		else if(guess>myNumber)
 		{
-			return "My number is greater than your guess! Try again.";
+			return "Your guess is greater than my number! Try again.";
 		}
-		else if(guess==myNumber)
-		{
+
 			return "Congratulations! Your guess is correct!" + "It only took you "+ tries + " tries. Good job!";
-		}
-		return "Please enter a valid input";
 	}
 	
 	private int findKeyword(String statement, String goal,
