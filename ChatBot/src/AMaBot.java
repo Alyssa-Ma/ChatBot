@@ -56,6 +56,12 @@ public class AMaBot
 		else if (findKeyword(statement, "game", 0) >=0)
 		{
 			response = "Oh, do you want to play a game?";
+			{
+				if(findKeyword(statement, "yes", 0)>=0)
+				{
+					response = game();
+				}
+			}
 			emotion++;
 		}
 		else
@@ -87,10 +93,10 @@ public class AMaBot
  * @param statement
  * @return
  */
-	private boolean game()
+	private boolean GuessGameame()
 	{
 		int a = (int )Math.random() * 10;
-		if(findKeyword(statement, Math.random())
+		if(keywordfound(statement, Math.random())
 			{
 			return true;
 			}
