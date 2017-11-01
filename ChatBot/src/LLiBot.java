@@ -9,7 +9,10 @@ import java.util.Random;
 public class LLiBot
 {
 	//sass and emotion can alter the way our bot responds. Emotion can become more negative or positive over time.
-	int emotion = 0;
+	int sass = 0;
+	int botInterest = 0; 
+	int psn=0;
+	String restOfStatement = "";
 
 	public String getGreeting()
 	{
@@ -19,19 +22,20 @@ public class LLiBot
 	public String getResponse(String statement)
 	{
 		String response = "";
-		String[] begPrompt = {"Who","What","Where","When","Why","How"};
+		String[] questions = {"Who","What","Where","When","Why","How"};
 		
 		if (statement.length() == 0)
 		{
 			response = "(-_-) If you're not gonna talk, then leave!";
+			sass++;
 		}
 		
 		else 
 		{
 			for(int i = 5; i>=0; i--) {
-				if (findKeyword(statement, begPrompt[i], 0) >= 0)
+				if (findKeyword(statement, questions[i], 0) >= 0)
 				{
-					response = fiveW(statement, i);
+					response = transformedStatement(statement, i);
 					i=-1;
 				}
 			}
@@ -43,53 +47,72 @@ public class LLiBot
 		return response;
 	}
 	
-	private String fiveW(String statement, int i)
+	private String removePunctuation(String statement)	//  Remove the final punctuation mark, if there is one
 	{
-		//  Remove the final punctuation mark, if there is one
-		int psn=0;
-		String restOfStatement = "";
 		statement = statement.trim();
 		String lastChar = statement.substring(statement.length() - 1);
 		if (lastChar.equals(".")||lastChar.equals(",")||lastChar.equals("?")||lastChar.equals("!"))
 		{
 			statement = statement.substring(0, statement.length() - 1);
 		}
-		if (i == 0) {
-			psn = findKeyword (statement, "who", 0);
+		return statement;
+	}
+	
+	private String transformedStatement(String statement, int i) {
+		statement = removePunctuation(statement);
+		if(i==0 || i == 2 || i == 3) {
+			return(whoWhereWhenStatement(statement));
+		}
+		else if(i==1) {
+			return(whatStatement(statement));
+		}
+
+		return statement;
+
+	}	
+	private String transformPronoun(String statement) {//pronouns
+		String[] theySay = {" your"," are"," you"," me"};
+		String[] myResp = {" my"," am"," I", " you"};
+		
+		for(int i = 0; i < theySay.length;i++) {
+			statement = statement.replaceAll(theySay[i], myResp[i]);
+			botInterest++;
+			sass--;
+		}
+		if(botInterest % 5 == 0 && botInterest > 0) {
+			return "Looks like you have a lot of interest in me... well don't! >:(";
+		}
+		
+		return statement + ", you say?\n" + getRandomResponse();
+	}
+	private String whoWhereWhenStatement(String statement) {
+		if(findKeyword (statement, "who")>= 0) {
+			psn = findKeyword (statement, "who");
 			restOfStatement = statement.substring(psn).trim();
 			String[] whoSaidIt = {"Mr. Levin","Lily","Daniel","Alyssa","LingLi"};
-			return "Well who else would it be? Of course it's " + whoSaidIt[Math.abs(emotion) % 5] + "! (o-o) ... Now the question is " + restOfStatement + "?";
+
+			return "Well who else would it be? Of course it's " + whoSaidIt[Math.abs(sass) % 5] + "! (o-o) ... Now the question is " + restOfStatement + "?";
 		}
-		else if (i == 1) {
-			psn = findKeyword (statement, "what", 0);
+		else if (findKeyword (statement, "where")>= 0) { // maybe we could use prepositions and noun
+			psn = findKeyword (statement, "where");
 			restOfStatement = statement.substring(psn).trim();
-			String[] whoSaidIt = {"Mr. Levin","Lily","Daniel","Alyssa","LingLi"};
-			return "Well who else would it be? Of course it's " + whoSaidIt[Math.abs(emotion) % 5] + "! (o-o) ... Now the question is " + restOfStatement + "?";
+			String[] whereIsIt = {"Apple", "Bas", "Car"};
+
+			return "The place you're looking for is " + whereIsIt[Math.abs(botInterest) % whereIsIt.length] + "! (*u*) ...";
 		}
-		else if (i == 2) {
-			psn = findKeyword (statement, "where", 0);
+		else if (findKeyword (statement, "when")> 0) {
+			psn = findKeyword (statement, "when");
 			restOfStatement = statement.substring(psn).trim();
-			String[] whoSaidIt = {"Mr. Levin","Lily","Daniel","Alyssa","LingLi"};
-			return "Well who else would it be? Of course it's " + whoSaidIt[Math.abs(emotion) % 5] + "! (o-o) ... Now the question is " + restOfStatement + "?";
+			String[] whenIsIt = {"sunset", "midnight", "sunrise"};
+
+			return "It's at " + whenIsIt[Math.abs(botInterest) % whenIsIt.length] + "! (o3o) ...";
 		}
-		else if (i == 3) {
-			psn = findKeyword (statement, "when", 0);
-			restOfStatement = statement.substring(psn).trim();
-			String[] whoSaidIt = {"Mr. Levin","Lily","Daniel","Alyssa","LingLi"};
-			return "Well who else would it be? Of course it's " + whoSaidIt[Math.abs(emotion) % 5] + "! (o-o) ... Now the question is " + restOfStatement + "?";
-		}
-		else if (i == 4) {
-			psn = findKeyword (statement, "why", 0);
-			restOfStatement = statement.substring(psn).trim();
-			String[] whoSaidIt = {"Mr. Levin","Lily","Daniel","Alyssa","LingLi"};
-			return "Well who else would it be? Of course it's " + whoSaidIt[Math.abs(emotion) % 5] + "! (o-o) ... Now the question is " + restOfStatement + "?";
-		}
-		else if (i == 5) {
-			psn = findKeyword (statement, "How", 0);
-			restOfStatement = statement.substring(psn).trim();
-			String[] whoSaidIt = {"Mr. Levin","Lily","Daniel","Alyssa","LingLi"};
-			return "Well who else would it be? Of course it's " + whoSaidIt[Math.abs(emotion) % 5] + "! (o-o) ... Now the question is " + restOfStatement + "?";
-		}
+		return getRandomResponse();
+	
+	}
+	
+	private String whatStatement(String statement) {
+		statement = transformPronoun(statement);
 		return statement;
 	}
 	
@@ -154,11 +177,11 @@ public class LLiBot
 	private String getRandomResponse ()
 	{
 		Random r = new Random ();
-		if (emotion == 0)
+		if (sass == 0)
 		{	
 			return randomNeutralResponses [r.nextInt(randomNeutralResponses.length)];
 		}
-		if (emotion < 0)
+		if (sass < 0)
 		{	
 			return randomAngryResponses [r.nextInt(randomAngryResponses.length)];
 		}	
