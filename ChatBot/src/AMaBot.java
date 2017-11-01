@@ -9,22 +9,12 @@ public class AMaBot
 {
 	//emotion can alter the way our bot responds. Emotion can become more negative or positive over time.
 	int emotion = 0;
-	/**
-	 * Get a default greeting 	
-	 * @return a greeting
-	 */	
+
 	public String getGreeting()
 	{
 		return "Thanks for choosing me! How are you feeling?";
 	}
 	
-	/**
-	 * Gives a response to a user statement
-	 * 
-	 * @param statement
-	 *            the user statement
-	 * @return a response based on the rules given
-	 */
 	public String getResponse(String statement)
 	{
 		String response = "";
@@ -45,6 +35,10 @@ public class AMaBot
 			response = "I'm glad you are. I'm fulfilling my purpose well.";
 			emotion++;
 		}
+		else if (findKeyword(statement, "yes") >= 0)
+		{
+			response = "Alright.";
+		}
 
 		// Response transforming I want to statement
 		else if (findKeyword(statement, "I want to", 0) >= 0)
@@ -54,7 +48,16 @@ public class AMaBot
 		else if (findKeyword(statement, "I want",0) >= 0)
 		{
 			response = transformIWantStatement(statement);
-		}	
+		}
+		else if (findKeyword(statement, "I hate",0) >= 0)
+		{
+			response = transformIhate(statement);
+		}
+		else if (findKeyword(statement, "game", 0) >=0)
+		{
+			response = "Oh, do you want to play a game?";
+			emotion++;
+		}
 		else
 		{
 			response = getRandomResponse();
@@ -63,12 +66,7 @@ public class AMaBot
 		return response;
 	}
 	
-	/**
-	 * Take a statement with "I want to <something>." and transform it into 
-	 * "Why do you want to <something>?"
-	 * @param statement the user statement, assumed to contain "I want to"
-	 * @return the transformed statement
-	 */
+	
 	private String transformIWantToStatement(String statement)
 	{
 		//  Remove the final period, if there is one
@@ -84,14 +82,21 @@ public class AMaBot
 		String restOfStatement = statement.substring(psn + 9).trim();
 		return "Why do you want to " + restOfStatement + "?";
 	}
-
+/**
+ * attempting to make a guessing math game
+ * @param statement
+ * @return
+ */
+	private boolean game()
+	{
+		int a = (int )Math.random() * 10;
+		if(findKeyword(statement, Math.random())
+			{
+			return true;
+			}
+		return false;
+	}
 	
-	/**
-	 * Take a statement with "I want <something>." and transform it into 
-	 * "Would you really be happy if you had <something>?"
-	 * @param statement the user statement, assumed to contain "I want"
-	 * @return the transformed statement
-	 */
 	private String transformIWantStatement(String statement)
 	{
 		//  Remove the final period, if there is one
