@@ -48,7 +48,7 @@ public class LLiBot
 	}
 	 
 	private String removePunctuation(String statement)	//  Remove the final punctuation mark, if there is one
-	{
+	{ 
 		statement = statement.trim();
 		String lastChar = statement.substring(statement.length() - 1);
 		if (lastChar.equals(".")||lastChar.equals(",")||lastChar.equals("?")||lastChar.equals("!"))
