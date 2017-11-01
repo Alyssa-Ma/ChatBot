@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * Chatbot on emotions?
@@ -59,7 +60,7 @@ public class AMaBot
 			{
 				if(findKeyword(statement, "yes", 0)>=0)
 				{
-					response = game();
+					response = guessGame(String);
 				}
 			}
 			emotion++;
@@ -90,17 +91,41 @@ public class AMaBot
 	}
 /**
  * attempting to make a guessing math game
- * @param statement
- * @return
  */
-	private boolean GuessGameame()
+	private void guessGame()
 	{
-		int a = (int )Math.random() * 10;
-		if(keywordfound(statement, Math.random())
+		int r = (int )Math.random() * 10001;
+		/**need to have parentheses or else it will always be zero 
+		 * also the number does not include, so you always need one more than your range
+		 */
+		int tries = 0;
+		Scanner input = new Scanner(System.in);
+		int guess;
+		boolean right = false;
+		while(right == false)
+		{
+			System.out.println("Alright, guess a number between 0 and 10000!");
+			guess = input.nextInt();
+			tries++;
+			
+			if(guess == r)
 			{
-			return true;
+				right = true;
 			}
-		return false;
+			else if (guess > r)
+			{
+				System.out.println("Your guess is a bit too high! xD");
+			}
+			else if (guess < r)
+			{
+				System.out.println("Your guess is a bit too low! ;p");
+			}
+				
+		}
+		System.out.println("Yay you got it right!");
+		System.out.println("The correct number was " + r);
+		System.out.println("The number of tries it took you to win was " + tries + "!");
+		
 	}
 	
 	private String transformIWantStatement(String statement)
