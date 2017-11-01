@@ -29,6 +29,12 @@ public class LZouBot
 					emotion++;
 		}
 		
+		else if(findKeyword(statement.toLowerCase(), "ready")>=0)
+		{
+			response=String GuessGame(String [] args];
+			
+		}
+		
 		else if(findKeyword(statement.toLowerCase(), "ok")>=0 || findKeyword(statement.toLowerCase(),"okay") >= 0)
 		{
 			response="Is there someone else that you care about or someone else that cares about you? "
@@ -50,6 +56,7 @@ public class LZouBot
 			response = "Who may he/she be?";
 						emotion++;
 		}
+		
 		else if(findKeyword(statement.toLowerCase(), "my", 0)>=0)
 		{
 			response=transformOtherSupports(statement);
@@ -231,6 +238,28 @@ public class LZouBot
 		String restOfStatement = statement.substring(x + 4).trim();
 		return "Why are you " + restOfStatement + "?";
 	}
+	
+	private String GuessGame(String [] args)
+	{
+		int myNumber=(int)(Math.random()*11);
+		int tries=0;
+		tries++;
+		for(int guess=0; guess<=10; guess++)
+		if(guess<myNumber)
+		{
+			return "Your guess is smaller than my number!";
+		}
+		else if(guess>myNumber)
+		{
+			return "My number is greater than your guess! Try again.";
+		}
+		else if(guess==myNumber)
+		{
+			return "Congratulations! Your guess is correct!" + "It only took you "+ tries + " tries. Good job!";
+		}
+		return "Please enter a valid input";
+	}
+	
 	private int findKeyword(String statement, String goal,
 			int startPos)
 	{
