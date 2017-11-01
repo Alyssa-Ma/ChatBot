@@ -46,7 +46,7 @@ public class LLiBot
 		
 		return response;
 	}
-	
+	 
 	private String removePunctuation(String statement)	//  Remove the final punctuation mark, if there is one
 	{
 		statement = statement.trim();
