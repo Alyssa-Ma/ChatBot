@@ -54,15 +54,10 @@ public class AMaBot
 		{
 			response = transformIhate(statement);
 		}
+		//game response
 		else if (findKeyword(statement, "game", 0) >=0)
 		{
-			response = "Oh, do you want to play a game?";
-			{
-				if(findKeyword(statement, "yes", 0)>=0)
-				{
-					response = guessGame(String);
-				}
-			}
+			response = guessGame();
 			emotion++;
 		}
 		else
@@ -90,21 +85,27 @@ public class AMaBot
 		return "Why do you want to " + restOfStatement + "?";
 	}
 /**
- * attempting to make a guessing math game
+ * attempting to make a guessing number game
  */
-	private void guessGame()
+	private String guessGame()
 	{
-		int r = (int )Math.random() * 10001;
+		System.out.println("Alright, guess a number between 0 and 1000!");
+		/**
+		 * fixed placement of this statement so it doesn't repeat every time you guess 
+		 */
+		int r = (int )(Math.random()*1001);
 		/**need to have parentheses or else it will always be zero 
 		 * also the number does not include, so you always need one more than your range
 		 */
 		int tries = 0;
 		Scanner input = new Scanner(System.in);
+		/**
+		 * tested using in.close(); not neccesary, will stop the loop after the first instance
+		 */
 		int guess;
 		boolean right = false;
 		while(right == false)
 		{
-			System.out.println("Alright, guess a number between 0 and 10000!");
 			guess = input.nextInt();
 			tries++;
 			
@@ -120,13 +121,12 @@ public class AMaBot
 			{
 				System.out.println("Your guess is a bit too low! ;p");
 			}
-				
 		}
 		System.out.println("Yay you got it right!");
 		System.out.println("The correct number was " + r);
 		System.out.println("The number of tries it took you to win was " + tries + "!");
-		
-	}
+		return("To play again, just say game again!");
+		}
 	
 	private String transformIWantStatement(String statement)
 	{
