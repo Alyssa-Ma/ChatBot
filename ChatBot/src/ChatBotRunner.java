@@ -13,7 +13,7 @@ public class ChatBotRunner
 	 */
 	public static void main(String[] args)
 	{
-		LLiBot chatbot1 = new LLiBot();
+		LZouBot chatbot1 = new LZouBot();
 		
 		System.out.println (chatbot1.getGreeting());
 		Scanner in = new Scanner (System.in);

@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.util.Scanner;
 /*
  *Lingli Zou
  *Mr. Levin Pd.2 
@@ -23,26 +24,30 @@ public class LZouBot
 			response = "Please tell me what happened so I can help you.";
 		}
 		
-		else if(findKeyword(statement.toLowerCase(), "still")>=0)
+		else if(findKeyword(statement.toLowerCase(), "game")>=0)
 		{
-			response="Let's play a guessing game to make you feel better. I picked a number from 0-10. Try to guess my number! Type 'ready' when you are ready.";
+			System.out.println("I picked a number from 0-10. Try to guess my number! Type 'ready' when you are ready.");
 					emotion++;
+					
+			in = new Scanner (System.in);
+			statement = in.nextLine();
+					
 					if(findKeyword(statement.toLowerCase(), "ready")>=0)
 					{
-									response=GuessGame();
+									System.out.println(GuessGame());
 					}
 		}
 
 		else if(findKeyword(statement.toLowerCase(), "ok")>=0 || findKeyword(statement.toLowerCase(),"okay") >= 0)
 		{
-			response="Is there someone else that you care about?";
+			System.out.println("Is there someone else that you care about or someone that cares about you?");
+			
+			in = new Scanner (System.in);
+			statement = in.nextLine();
+			
 					if(findKeyword(statement.toLowerCase(), "no")>=0)
 					{
-						response="Is there someone that cares about you?";
-					}
-					if(findKeyword(statement.toLowerCase(), "no")>=0)
-					{
-						response="There has to be at least one person.";
+						System.out.println("There has to be at least one person.");
 					}
 		}
 		
@@ -250,16 +255,20 @@ public class LZouBot
 		int myNumber=(int)(Math.random()*11);
 		int tries=0;
 		tries++;
-		int guess=0;
+		Scanner in = new Scanner (System.in);
+
+		int guess= 0;
 		
 		while(guess != myNumber)
-		if(guess<myNumber)
 		{
+			if(guess<myNumber)
+			{
 			return "Your guess is smaller than my number! Try again!";
-		}
+			}
 		else if(guess>myNumber)
-		{
+			{
 			return "Your guess is greater than my number! Try again.";
+			}
 		}
 
 			return "Congratulations! Your guess is correct!" + "It only took you "+ tries + " tries. Good job!";
@@ -348,5 +357,7 @@ public class LZouBot
 											"Tomorrow will be better",
 											"When you can't look at the bright side, I will sit with you in dark!",
 											"Every day is a new day!"};
+
+	private Scanner in;
 	
 }
