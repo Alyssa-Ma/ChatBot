@@ -26,16 +26,8 @@ public class LZouBot
 		
 		else if(findKeyword(statement.toLowerCase(), "game")>=0)
 		{
-			System.out.println("I picked a number from 0-10. Try to guess my number! Type 'ready' when you are ready.");
+			System.out.println(GuessGame());
 					emotion++;
-					
-			in = new Scanner (System.in);
-			statement = in.nextLine();
-					
-					if(findKeyword(statement.toLowerCase(), "ready")>=0)
-					{
-									System.out.println(GuessGame());
-					}
 		}
 
 		else if(findKeyword(statement.toLowerCase(), "ok")>=0 || findKeyword(statement.toLowerCase(),"okay") >= 0)
@@ -252,22 +244,23 @@ public class LZouBot
 	
 	private String GuessGame()
 	{
+		System.out.println("I picked a number from 0-10. Try to guess my number!");
 		int myNumber=(int)(Math.random()*11);
 		int tries=0;
 		tries++;
-		Scanner in = new Scanner (System.in);
-
-		int guess= 0;
+		in = new Scanner (System.in);
+		int guess;
 		
 		while(guess != myNumber)
 		{
 			if(guess<myNumber)
 			{
-			return "Your guess is smaller than my number! Try again!";
+			System.out.println("Your guess is smaller than my number! Try again!");
 			}
-		else if(guess>myNumber)
+	
+			else if(guess>myNumber)
 			{
-			return "Your guess is greater than my number! Try again.";
+			System.out.println("Your guess is greater than my number! Try again.");
 			}
 		}
 
