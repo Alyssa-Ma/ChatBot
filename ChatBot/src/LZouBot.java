@@ -243,28 +243,37 @@ public class LZouBot
 	}
 	
 	private String GuessGame()
-	{
+	{			
 		System.out.println("I picked a number from 0-10. Try to guess my number!");
+
+		boolean correct=false;
 		int myNumber=(int)(Math.random()*11);
-		int tries=0;
-		tries++;
 		in = new Scanner (System.in);
+		int tries=0;
 		int guess;
 		
-		while(guess != myNumber)
-		{
-			if(guess<myNumber)
-			{
-			System.out.println("Your guess is smaller than my number! Try again!");
-			}
+		while(correct == false)
+		{			
+			tries++;
+			guess=in.nextInt();
+
+				if(guess<myNumber)
+				{
+					System.out.println("Your guess is smaller than my number! Try again!");
+				}
 	
-			else if(guess>myNumber)
-			{
-			System.out.println("Your guess is greater than my number! Try again.");
-			}
+				else if(guess>myNumber)
+				{
+					System.out.println("Your guess is greater than my number! Try again.");
+				}
+				else if(guess==myNumber)
+				{
+					System.out.println("Congratulations! Your guess is correct!");
+				}
 		}
 
-			return "Congratulations! Your guess is correct!" + "It only took you "+ tries + " tries. Good job!";
+			return "It only took you "+ tries + " tries. Good job!";
+				
 	}
 	
 	private int findKeyword(String statement, String goal,
