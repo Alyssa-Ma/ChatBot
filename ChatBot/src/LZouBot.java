@@ -3,8 +3,8 @@ import java.util.Scanner;
 /*
  *Lingli Zou
  *Mr. Levin Pd.2 
- *
- *Relationship Failure ChatBot
+ *ChatBot Project
+ *Relationship Breakup Bot
  */
 public class LZouBot
 {
