@@ -14,6 +14,31 @@ public class ChatBotRunner
 	
 	public static void main(String[] args)
 	{
+		String statement;
+		System.out.println("Good Morning!");
+		Scanner main = new Scanner(System.in);
+		String morning = main.nextLine();
+		
+		while(morning.length()>0 || statement.equals("Bye")){
+			System.out.println("Hello, welcome to the main menu!\n0. Exit\n1.Potato\n2.Potato\n3.Potato\n4. Potato\nPlease pick a selection: ");
+			Scanner selection = new Scanner(System.in);
+			String choice = selection.nextLine();
+			
+			switch(choice) {
+				case "0":
+					
+					break;
+				case "1":
+					
+					break;
+				case "2":
+					
+					break;
+			}
+		
+		}
+		
+		
 		LZouBot chatbot1 = new LZouBot();
 		
 		System.out.println (chatbot1.getGreeting());

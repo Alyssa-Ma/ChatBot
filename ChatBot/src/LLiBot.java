@@ -1,3 +1,8 @@
+//find keywords 
+//When and Why
+//Greetings
+//Good Byes
+
 import java.util.Random;
 
 /**
