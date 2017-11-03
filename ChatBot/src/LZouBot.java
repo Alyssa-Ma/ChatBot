@@ -48,13 +48,13 @@ public class LZouBot
 							
 						if(findKeyword(statement, "no") >= 0)
 						{
-							System.out.println("Then it is time to move on.");
+							System.out.print("Then it is time to move on.");
 					
 						}
 					}
 					else if (findKeyword(statement, "no") >= 0)
 					{
-						System.out.println("Then let's talk about something else.");
+						System.out.print("Then let's talk about something else.");
 					}
 		}
 		
@@ -67,11 +67,11 @@ public class LZouBot
 			
 					if(findKeyword(statement.toLowerCase(), "no")>=0)
 					{
-						System.out.println("There has to be at least one person.");
+						System.out.print("There has to be at least one person.");
 					}
 					else if(findKeyword(statement.toLowerCase(),"yes") >= 0)
 					{
-						System.out.println("Who may he/she be?");
+						System.out.print("Who may he/she be?");
 							emotion++;
 					}
 		}
@@ -84,6 +84,7 @@ public class LZouBot
 		else if(findKeyword(statement.toLowerCase(), "hi")>=0 || findKeyword(statement.toLowerCase(),"hello") >= 0)
 		{
 			response = "Hello! What would you like to talk about today?";
+					emotion++;
 		}
 		
 		else if(findKeyword(statement.toLowerCase(), "my", 0)>=0)
@@ -111,20 +112,20 @@ public class LZouBot
 
 		else if (findKeyword(statement, "broke up") >= 0)
 		{
-			System.out.println ("Everything will get better."); 
+			System.out.println("Everything will get better."); 
 			
 			in = new Scanner (System.in);
 			statement = in.nextLine();
 							
 					if(findKeyword(statement.toLowerCase(), "no")>=0)
 					{
-						System.out.println("Don't say no because it will. Trust me.");
+						System.out.print("Don't say no because it will. Trust me.");
 							emotion--;
 					}
 					
-					else if(findKeyword(statement.toLowerCase(),"ok") >= 0)
+					else if(findKeyword(statement.toLowerCase(),"ok") >= 0 || findKeyword(statement.toLowerCase(),"okay") >= 0)
 					{
-						System.out.println("Great! Now you are one step closer to moving on!");
+						System.out.print("Great! Now you are one step closer to moving on!");
 							emotion++;
 					}
 		}
@@ -185,7 +186,7 @@ public class LZouBot
 			response=transformILoveStatement(statement);
 		}
 		
-		else if(findKeyword(statement, "yay")>=0 || findKeyword(statement.toLowerCase(),"yes!") >= 0)
+		else if(findKeyword(statement, "yay")>=0 || findKeyword(statement.toLowerCase(),"!") >= 0)
 		{
 			response="Now cheer up! You are amazing!";
 					emotion++;
@@ -305,12 +306,12 @@ public class LZouBot
 
 				if(guess<myNumber)
 				{
-					System.out.println("Your guess is smaller than my number! Try again!");
+					System.out.println("Your guess is smaller than my secret number! Try again!");
 				}
 	
 				else if(guess>myNumber)
 				{
-					System.out.println("Your guess is greater than my number! Try again.");
+					System.out.println("Your guess is greater than my secret number! Try again.");
 				}
 				else if(guess==myNumber)
 				{
@@ -319,7 +320,7 @@ public class LZouBot
 				}
 		}
 
-			return "It only took you " +tries+ " tries. Well done!";
+			return "It took you " +tries+ " tries. Well done!";
 				
 	}
 	
