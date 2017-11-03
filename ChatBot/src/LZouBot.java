@@ -3,6 +3,7 @@ import java.util.Scanner;
 /*
  *Lingli Zou
  *Mr. Levin Pd.2 
+ *
  *Relationship Failure ChatBot
  */
 public class LZouBot
@@ -29,8 +30,35 @@ public class LZouBot
 			System.out.println(GuessGame());
 					emotion++;
 		}
-
-		else if(findKeyword(statement.toLowerCase(), "ok")>=0 || findKeyword(statement.toLowerCase(),"okay") >= 0)
+		
+		else if(findKeyword(statement.toLowerCase(), "okay")>=0)
+		{
+			System.out.println("Would you like to tell me why you liked that person?");
+					emotion++;
+					
+			in = new Scanner (System.in);
+			statement = in.nextLine();
+					
+					if(findKeyword(statement.toLowerCase(), "because")>=0)
+					{
+						System.out.println("How about now? Is the person still acts the same?");
+								
+							in = new Scanner (System.in);
+							statement = in.nextLine();
+							
+						if(findKeyword(statement, "no") >= 0)
+						{
+							System.out.println("Then it is time to move on.");
+					
+						}
+					}
+					else if (findKeyword(statement, "no") >= 0)
+					{
+						System.out.println("Then let's talk about something else.");
+					}
+		}
+		
+		else if(findKeyword(statement.toLowerCase(), "ok")>=0)
 		{
 			System.out.println("Is there someone else that you care about or someone that cares about you?");
 			
@@ -41,8 +69,12 @@ public class LZouBot
 					{
 						System.out.println("There has to be at least one person.");
 					}
+					else if(findKeyword(statement.toLowerCase(),"yes") >= 0)
+					{
+						System.out.println("Who may he/she be?");
+							emotion++;
+					}
 		}
-		
 		else if (findKeyword(statement, "I am") >= 0)
 		{
 			response = transformIAmStatement(statement);
@@ -52,12 +84,6 @@ public class LZouBot
 		else if(findKeyword(statement.toLowerCase(), "hi")>=0 || findKeyword(statement.toLowerCase(),"hello") >= 0)
 		{
 			response = "Hello! What would you like to talk about today?";
-		}
-		
-		else if(findKeyword(statement.toLowerCase(),"yes") >= 0)
-		{
-			response = "Who may he/she be?";
-						emotion++;
 		}
 		
 		else if(findKeyword(statement.toLowerCase(), "my", 0)>=0)
@@ -85,9 +111,22 @@ public class LZouBot
 
 		else if (findKeyword(statement, "broke up") >= 0)
 		{
-			response = "Everything will get better."+
-						" Don't say no because it will. Trust me.";
-					emotion--;
+			System.out.println ("Everything will get better."); 
+			
+			in = new Scanner (System.in);
+			statement = in.nextLine();
+							
+					if(findKeyword(statement.toLowerCase(), "no")>=0)
+					{
+						System.out.println("Don't say no because it will. Trust me.");
+							emotion--;
+					}
+					
+					else if(findKeyword(statement.toLowerCase(),"ok") >= 0)
+					{
+						System.out.println("Great! Now you are one step closer to moving on!");
+							emotion++;
+					}
 		}
 		
 		else if (findKeyword(statement.toLowerCase(),"hurt") >= 0 || findKeyword(statement.toLowerCase(),"pain") >= 0)
@@ -145,6 +184,13 @@ public class LZouBot
 		{
 			response=transformILoveStatement(statement);
 		}
+		
+		else if(findKeyword(statement, "yay")>=0 || findKeyword(statement.toLowerCase(),"yes!") >= 0)
+		{
+			response="Now cheer up! You are amazing!";
+					emotion++;
+		}
+		
 		else
 		{
 			response = getRandomResponse();
@@ -249,13 +295,13 @@ public class LZouBot
 		boolean correct=false;
 		int myNumber=(int)(Math.random()*11);
 		in = new Scanner (System.in);
-		int tries=0;
 		int guess;
+		int tries=0;
 		
 		while(correct == false)
 		{			
-			tries++;
 			guess=in.nextInt();
+			tries++;
 
 				if(guess<myNumber)
 				{
@@ -268,11 +314,12 @@ public class LZouBot
 				}
 				else if(guess==myNumber)
 				{
-					System.out.println("Congratulations! Your guess is correct!");
+					System.out.println("Congratulations! Your guess is correct!");	
+					break;
 				}
 		}
 
-			return "It only took you "+ tries + " tries. Good job!";
+			return "It only took you " +tries+ " tries. Well done!";
 				
 	}
 	
@@ -341,21 +388,26 @@ public class LZouBot
 												"Take a moment to refresh your mind.",
 												"Is that what you really think?",
 												"Let it out.",
+												"Oh..."
 												};
 	
 	private String [] randomSadResponses = {"Don't say that!", 
 											"That is not true!", 
 											"Everything happens for a reason.",
-											"Don't lose hope.",
-											"You got this.",
+											"Don't lose hope!",
+											"It is time to pull yourself together.",
+											"Love yourself!",
+											"You got this!",
+											"It is time to move on.",
 											"Everything will pass.",
 											"You will be okay. I promise."
 											};
 	
 	private String [] randomHappyResponses = {"I am so glad you feel this way!", 
-											"Always smile :)", 
+											"What appears to be the end may really be a new beginning!", 
 											"You will be alright",
-											"Cheer up. You will be in love again with someone much better.",
+											"Stay strong! Don't give up.",
+											"Smile! You will be in love again with someone much better.",
 											"Tomorrow will be better",
 											"When you can't look at the bright side, I will sit with you in dark!",
 											"Every day is a new day!"};
