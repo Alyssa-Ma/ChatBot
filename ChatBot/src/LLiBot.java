@@ -114,7 +114,7 @@ public class LLiBot
 	
 	private String whatStatement(String statement) {
 		statement = transformPronoun(statement);
-		return statement;
+		return statement; 
 	}
 	
 	private int findKeyword(String statement, String goal, int startPos)
