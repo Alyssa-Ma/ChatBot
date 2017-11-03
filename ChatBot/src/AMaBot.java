@@ -4,16 +4,15 @@ import java.util.Scanner;
 /**
  * Chatbot on emotions?
  * @author Alyssa
- * vague topic kinda? casual talking???
+ * update 11/2: changed chatbot topic to games
  */
 public class AMaBot
 {
-	//emotion can alter the way our bot responds. Emotion can become more negative or positive over time.
 	int emotion = 0;
 
 	public String getGreeting()
 	{
-		return "Thanks for choosing me! How are you feeling?";
+		return "Hi there! I see you want to talk about games. Well I know a lot about games!";
 	}
 	
 	public String getResponse(String statement)
@@ -22,26 +21,32 @@ public class AMaBot
 		
 		if (statement.length() == 0)
 		{
-			response = "What's wrong? Are you getting bored?";
+			response = "If you're bored, we can play a game!";
 		}
-
+		
+		//find keyword statements
 		else if (findKeyword(statement, "no") >= 0)
 		{
-			response = "Why do you say no?";
+			response = "Why no? :(";
 			emotion--;
 		}
 		
 		else if (findKeyword(statement, "happy") >= 0)
 		{
-			response = "I'm glad you are. I'm fulfilling my purpose well.";
+			response = "I'm happy too! I love games!";
 			emotion++;
 		}
-		else if (findKeyword(statement, "yes") >= 0)
+		else if (findKeyword(statement, "hi") >= 0)
 		{
-			response = "Alright.";
+			response = "Hi to you too! :D";
+			emotion ++;
 		}
-
-		// Response transforming I want to statement
+		else if (findKeyword(statement, "arcade")>=0)
+		{
+			response = "Ah, I've never been to an arcade before, but I like arcade games too!";
+		}
+		
+		//transform statements
 		else if (findKeyword(statement, "I want to", 0) >= 0)
 		{
 			response = transformIWantToStatement(statement);
@@ -54,10 +59,16 @@ public class AMaBot
 		{
 			response = transformIhate(statement);
 		}
-		//game response
-		else if (findKeyword(statement, "game", 0) >=0)
+		
+		//games
+		else if (findKeyword(statement, "number game", 0) >=0)
 		{
-			response = guessGame();
+			response = numberGame();
+			emotion++;
+		}
+		else if(findKeyword(statement, "game game", 0)>=0)
+		{
+			response = gameGame();
 			emotion++;
 		}
 		else
@@ -87,7 +98,7 @@ public class AMaBot
 /**
  * attempting to make a guessing number game
  */
-	private String guessGame()
+	private String numberGame()
 	{
 		System.out.println("Alright, guess a number between 0 and 1000!");
 		/**
@@ -125,8 +136,144 @@ public class AMaBot
 		System.out.println("Yay you got it right!");
 		System.out.println("The correct number was " + r);
 		System.out.println("The number of tries it took you to win was " + tries + "!");
-		return("To play again, just say game again!");
+		return("To play again, just say number game again!");
 		}
+	public String gameGame()
+	{
+		//another variation of the numberGame, but this time with games
+		//possible games to be chosen from
+		String[] gameArray;
+		String[] listofGamesArray = {"League of Legends", "Paladins", "Maplestory", "osu!", "Insurgency", "Tetris"};
+		gameArray = listofGamesArray;
+		String gamechoose;
+		gamechoose = "";
+	
+		//league hints
+		String[] lhints;
+		String[] leaguehints = {"There's a pretty big e-sports prescence for this game.","There are five lanes.","It's a MOBA.", "It's my personal favourite with my friends.","Fun fact: I main ADC in this game."};
+		lhints = leaguehints;
+		
+		//paladins hints
+		String[] phints;
+		String[] paladinshints = {"A very cartoonish game.", "Its prescence in the e-sports community is relatively new.","It's a FPS.","Similar to a more well known cartoonish FPS game, without the cost."};
+		phints = paladinshints;
+				
+		//maplestory hints
+		String[] mhints;
+		String[] maplestoryhints = {"A classic game that a lot of people know, even non gamers.","It's an anime styled  MMORPG.","It's a side action scroller.","It was released in 2005 in NA.","Massive grind haha.","I love my Lumi."};
+		mhints = maplestoryhints;
+				
+		//osu hints
+		String[] ohints;
+		String[] osuhints = {"A popular rhythm game.","Click to the beat!","It was released in 2007.","Most maps are user created.","Uses star difficulty.","Beatmaps.","Fun fact: I was in the top 180k at one point, which is considered decent haha."};
+		ohints = osuhints;
+	
+		//insurgency hints
+		String[] ihints;
+		String[] insurgencyhints = {"It's a FPS.", "A realistic game.","This game typically costs 10 dollars","Capture Charlie or Alpha please.","Fun fact: I blew myself up in the tutorial of this game. Good times."};
+		ihints = insurgencyhints;
+				
+		//tetris hints
+		String[] thints;
+		String[] tetrishints = {"A real classic.","It was released in 1984! o_o","Clear lines!","Not neccesarily a multiplayer game, but there are versions that are.","I love using my combo strategy on my friends and destroying them haha."};
+		thints = tetrishints;
+		
+		int hintCounter;
+		hintCounter = 0;
+		
+		boolean wrongchoice;
+		wrongchoice = true;
+		
+		//random choosing games
+		int randgame = (int )((Math.random()*8));
+		if(randgame >= 0 && randgame <= 1)
+		{
+			gamechoose = (gameArray[0]);
+			
+		}
+		else if(randgame > 1 && randgame <= 2)
+		{
+			gamechoose = (gameArray[1]);
+		}
+		else if(randgame > 2 && randgame <= 3)
+		{
+			gamechoose = gameArray[2];
+		}
+		else if(randgame > 3 && randgame <= 4)
+		{
+			gamechoose = gameArray[3];
+		}
+		else if(randgame > 4 && randgame <= 5)
+		{
+			gamechoose = gameArray[4];
+		}
+		else if(randgame > 6 && randgame <= 7)
+		{
+			gamechoose = gameArray[5];
+		}
+		else if(randgame > 7 && randgame <= 8)
+		{
+			gamechoose = gameArray[6];
+		}
+			
+		System.out.println("This game is simple.");
+		System.out.println("You simply need to guess the game I choose!");
+		System.out.println("Too easy? Hmm...");
+		System.out.println("I know! You only have 3 tries before I win!");
+		System.out.println("Good luck! ;)");
+		//wrong tries track
+		wrongchoice = true;
+		int wrongtries;
+		wrongtries = 0;
+		while(wrongchoice)
+		{
+			if(wrongtries == 3)
+			{
+				System.out.println("Yay I win! Would you like to try again? Just say game game again!");
+				wrongchoice = false;
+			}
+			else
+			{
+				if(hintCounter < lhints.length)
+				{
+					System.out.println("This is hint " + (hintCounter + 1) + " : " + lhints[hintCounter]);
+				}
+				else if(hintCounter < phints.length)
+				{
+					System.out.println("This is hint " + (hintCounter + 1) + " ; " + phints[hintCounter]);
+				}
+				else if(hintCounter < mhints.length)
+				{
+					System.out.println("This is hint " + (hintCounter + 1) + " ; " + mhints[hintCounter]);
+				}
+				else if(hintCounter < ohints.length)
+				{
+					System.out.println("This is hint " + (hintCounter + 1) + " ; " + ohints[hintCounter]);
+				}
+				else if(hintCounter < ihints.length)
+				{
+					System.out.println("This is hint " + (hintCounter + 1) + " ; " + ihints[hintCounter]);
+				}
+				else if(hintCounter < thints.length)
+				{
+					System.out.println("This is hint " + (hintCounter + 1) + " ; " + thints[hintCounter]);
+				}
+				String response2 = "";
+				response2 = ChatBotRunner.gameinput();
+				if(findKeyword(response2, gamechoose, 0)>= 0)
+				{
+					wrongchoice = false;
+					System.out.println("You win! gg");
+				}
+				{
+					wrongtries++;
+					System.out.println("This attempt number " +wrongtries + ".");
+				}
+				hintCounter++;
+			}
+		}
+		return("To play again, just say game game again!");
+	}
 	
 	private String transformIWantStatement(String statement)
 	{
@@ -187,22 +334,7 @@ public class AMaBot
 
 	
 	
-	/**
-	 * Search for one word in phrase. The search is not case
-	 * sensitive. This method will check that the given goal
-	 * is not a substring of a longer string (so, for
-	 * example, "I know" does not contain "no").
-	 *
-	 * @param statement
-	 *            the string to search
-	 * @param goal
-	 *            the string to search for
-	 * @param startPos
-	 *            the character of the string to begin the
-	 *            search at
-	 * @return the index of the first occurrence of goal in
-	 *         statement or -1 if it's not found
-	 */
+	
 	private int findKeyword(String statement, String goal,
 			int startPos)
 	{
@@ -284,15 +416,15 @@ public class AMaBot
 		return randomHappyResponses [r.nextInt(randomHappyResponses.length)];
 	}
 	
-	private String [] randomNeutralResponses = {"Do you really feel that way?",
+	private String [] randomNeutralResponses = {"I'm getting bored... Let's play a game!",
 			"I see.",
-			"What else do you want to talk about?",
-			"I understand.",
-			"School is difficult.",
-			"I'm a bit tired, but please continue.",
-			"I wonder..."
+			"One of the reasons why I chose this elective was to learn how to code for games haha...",
+			"I really love games.",
+			"Lately, I've been unable to play games because of school. So let's play a game right now!",
+			":D I like League of Legends!",
+			"Which genre of games do you like?"
 	};
-	private String [] randomSadResponses = {"Why are you being like this?", "I only wanted to help...", "..."};
-	private String [] randomHappyResponses = {"I'm so glad I could be of use!", "Finally, I'm fulfilling my purpose!", "Haha, I feel a bit light."};
+	private String [] randomSadResponses = {"I really wanted to play a game though... :(", "This is getting so stressful...", "...", "Let me play...", "You're being kinda mean..."};
+	private String [] randomHappyResponses = {"I'm glad that you like games as much as me!", "Let's play some more!", "It's so fun playing with you!", ":D games!!!"};
 	
 }
