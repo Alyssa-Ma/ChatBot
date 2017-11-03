@@ -35,7 +35,7 @@ public class LZouBot
 		{
 			System.out.println("Would you like to tell me why you liked that person?");
 					emotion++;
-					
+				
 			in = new Scanner (System.in);
 			statement = in.nextLine();
 					
