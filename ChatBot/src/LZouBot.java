@@ -46,7 +46,7 @@ public class LZouBot
 							in = new Scanner (System.in);
 							statement = in.nextLine();
 							
-						if(findKeyword(statement, "no") >= 0)
+						 if(findKeyword(statement, "no") >= 0)
 						{
 							System.out.print("Then it is time to move on.");
 					
