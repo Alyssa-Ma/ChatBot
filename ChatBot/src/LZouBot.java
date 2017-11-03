@@ -84,6 +84,7 @@ public class LZouBot
 		else if(findKeyword(statement.toLowerCase(), "hi")>=0 || findKeyword(statement.toLowerCase(),"hello") >= 0)
 		{
 			response = "Hello! What would you like to talk about today?";
+					emotion++;
 		}
 		
 		else if(findKeyword(statement.toLowerCase(), "my", 0)>=0)
