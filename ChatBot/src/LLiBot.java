@@ -9,9 +9,7 @@ import java.util.Random;
 public class LLiBot
 {
 	//sass and emotion can alter the way our bot responds. Emotion can become more negative or positive over time.
-	int sass = 0;
-	int botInterest = 0; 
-	int psn=0;
+	int sass = 0, botInterest = 0, psn=0;
 	String restOfStatement = "";
 
 	public String getGreeting()
@@ -60,16 +58,19 @@ public class LLiBot
 	
 	private String transformedStatement(String statement, int i) {
 		statement = removePunctuation(statement);
-		if(i==0 || i == 2 || i == 3) {
+		if(i==0 || i == 2 || i == 3) 
+		{
 			return(whoWhereWhenStatement(statement));
 		}
-		else if(i==1) {
+		else if(i==1) 
+		{
 			return(whatStatement(statement));
 		}
 
-		return statement;
+		return getRandomResponse();
 
 	}	
+	
 	private String transformPronoun(String statement) {//pronouns
 		String[] theySay = {" your"," are"," you"," me"};
 		String[] myResp = {" my"," am"," I", " you"};
@@ -85,6 +86,7 @@ public class LLiBot
 		
 		return statement + ", you say?\n" + getRandomResponse();
 	}
+	
 	private String whoWhereWhenStatement(String statement) {
 		if(findKeyword (statement, "who")>= 0) {
 			psn = findKeyword (statement, "who");
@@ -97,15 +99,14 @@ public class LLiBot
 			psn = findKeyword (statement, "where");
 			restOfStatement = statement.substring(psn).trim();
 			String[] whereIsIt = {"Apple", "Bas", "Car"};
-
 			return "The place you're looking for is " + whereIsIt[Math.abs(botInterest) % whereIsIt.length] + "! (*u*) ...";
 		}
-		else if (findKeyword (statement, "when")> 0) {
+		else if (findKeyword (statement, "when")>= 0) {
 			psn = findKeyword (statement, "when");
 			restOfStatement = statement.substring(psn).trim();
-			String[] whenIsIt = {"sunset", "midnight", "sunrise"};
-
-			return "It's at " + whenIsIt[Math.abs(botInterest) % whenIsIt.length] + "! (o3o) ...";
+			String [] week = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday","Sunday"};
+			Random randhr = new Random(), randmin1 = new Random(), randmin2 = new Random(); 
+			return "It's on " + week[Math.abs(sass) % week.length] + " at " + randhr.nextInt(24) + ":" + randmin1.nextInt(10) + randmin2.nextInt(10) + "! (o3o) ...";
 		}
 		return getRandomResponse();
 	
@@ -113,7 +114,7 @@ public class LLiBot
 	
 	private String whatStatement(String statement) {
 		statement = transformPronoun(statement);
-		return statement;
+		return statement; 
 	}
 	
 	private int findKeyword(String statement, String goal, int startPos)
@@ -190,13 +191,11 @@ public class LLiBot
 	
 	private String [] randomNeutralResponses = {"Interesting, tell me more",
 			"Hmmm.",
-			"Do you really think so?",
-			"You don't say.",
-			"It's all boolean to me.",
+			"Out of my way! I got my sassy pants on",
+			"What did you say?",
 			"So, would you like to go for a walk?",
 			"Could you say that again?"
 	};
-	private String [] randomAngryResponses = {"Bahumbug.", "Harumph", "The rage consumes me!"};
-	private String [] randomHappyResponses = {"H A P P Y, what's that spell?", "Today is a good day", "You make me feel like a brand new pair of shoes."};
-	
+	private String [] randomAngryResponses = {"Bahumbug.", "HAHAHAHAHAHAHAHAHAH you funny", "If I wanted to find a place to parachute, I'd climb your ego and jump to your IQ"};
+	private String [] randomHappyResponses = {"Don't stand too clost to the heaters, plastic melts ya know", "Today is a good day because you are not near my vicinity", "I'm sorry, what language was that? Sounds like BS.."};
 }
