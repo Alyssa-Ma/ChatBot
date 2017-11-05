@@ -14,32 +14,48 @@ public class ChatBotRunner
 	
 	public static void main(String[] args)
 	{
-		String statement;
+		String statement = "";
 		System.out.println("Good Morning!");
 		Scanner main = new Scanner(System.in);
-		String morning = main.nextLine();
+		String welcome = main.nextLine();
+		int i = 0;
+		i= welcome.length();
+		String closure ="" ;
 		
-		while(morning.length()>0 || statement.equals("Bye")){
-			System.out.println("Hello, welcome to the main menu!\n0. Exit\n1.Potato\n2.Potato\n3.Potato\n4. Potato\nPlease pick a selection: ");
+		while( i > 0 || closure.equals("Bye")){
+			System.out.print("Welcome to the main menu! Please pick a selection for the chat bot you wish to speak to. \n0. Exit\n1.Potato\n2.Potato\n3.Potato\n4.Potato\n\nSelection: ");
 			Scanner selection = new Scanner(System.in);
 			String choice = selection.nextLine();
-			
+			closure = "";
 			switch(choice) {
 				case "0":
-					
+					System.out.println("good bye");
+				    i = 0;
+					statement = "bye";
 					break;
 				case "1":
+					//i=0;
+					LLiBot chatbot1 = new LLiBot();
 					
+					System.out.println (chatbot1.getGreeting());
+					Scanner in = new Scanner (System.in);
+					statement = in.nextLine();
+					while (!closure.equals("Bye"))
+					{
+						System.out.println (chatbot1.getResponse(statement));
+						statement = in.nextLine();
+						closure = chatbot1.returnToMianMenu(statement);
+					}
 					break;
 				case "2":
-					
+					System.out.print("2");
 					break;
 			}
 		
 		}
 		
-		
-		LZouBot chatbot1 = new LZouBot();
+		/*
+		LLiBot chatbot1 = new LLiBot();
 		
 		System.out.println (chatbot1.getGreeting());
 		Scanner in = new Scanner (System.in);
@@ -50,7 +66,9 @@ public class ChatBotRunner
 			System.out.println (chatbot1.getResponse(statement));
 			statement = in.nextLine();
 		}
+		*/
 		
+		main.close();
 	}
 	public static String gameinput()
 	{

@@ -16,7 +16,17 @@ public class LLiBot
 	//sass and emotion can alter the way our bot responds. Emotion can become more negative or positive over time.
 	int sass = 0, botInterest = 0, psn=0;
 	String restOfStatement = "";
-
+	public String returnToMianMenu(String statement) { 
+		String[] closingResponse = {"bye","Bye", "want to leave","I'm out","main menu"};
+		String closure = "";
+		for(int i = 0; i< closingResponse.length; i++) {
+			if(findKeyword(statement, closingResponse[i]) >= 0) {
+				closure = "Bye";
+			}
+		}
+		return closure;
+	}
+	
 	public String getGreeting()
 	{
 		return "Whaddya want? Make it quick! I don't have all day for you!!! DX";
@@ -36,7 +46,7 @@ public class LLiBot
 		else 
 		{
 			for(int i = 5; i>=0; i--) {
-				if (findKeyword(statement, questions[i], 0) >= 0)
+				if (findKeyword(statement, questions[i]) >= 0)
 				{
 					response = transformedStatement(statement, i);
 					i=-1;
@@ -77,7 +87,7 @@ public class LLiBot
 	}	
 	
 	private String transformPronoun(String statement) {//pronouns
-		String[] theySay = {" your"," are"," you"," me"};
+		String[] theySay = {" your "," are "," you "," me "};
 		String[] myResp = {" my"," am"," I", " you"};
 		
 		for(int i = 0; i < theySay.length;i++) {
