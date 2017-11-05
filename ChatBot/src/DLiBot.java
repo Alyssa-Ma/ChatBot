@@ -1,5 +1,5 @@
-  import java.util.Random;
- import java.util.Scanner;  
+ 
+  import java.util.Scanner; 
 /**
  * A program to carry on conversations with a human user.
  * This version:
@@ -228,13 +228,72 @@ public class DLiBot
 		}
 	
 		
-	public String SkinDiagnosis()
+	public String[] SkinDiagnosis()
 	{
+		String []x= getProducts();
+		
 		if(age<=18&&findKeyword(condition.toLowerCase(), "oil")>=0)
 		{
-			return "You have an oily skin type. For the products recommended, please be cautious as you are still young and your skin is sensitive.";
+			System.out.println("You have an oily skin type with " + concern +". For the products recommended, please be cautious as you are still young and your skin is sensitive.");
 		}
-	
+		
+		else if(age>18&&age<40&&findKeyword(condition.toLowerCase(), "oil")>=0)
+		{
+			System.out.println("You have an oily skin type with " + concern);
+		}
+		
+		else if(age>40&&findKeyword(condition.toLowerCase(), "oil")>=0)
+		{
+			System.out.println("You have an oily skin type with " + concern +". For the products recommended, please be cautious as your skin has matured and your skin is sensitive. Look for products with anti-aging.");
+		}
+		
+		else if(age<=18&&findKeyword(condition.toLowerCase(), "dry")>=0)
+		{
+			System.out.println("You have a dry skin type with " + concern +". For the products recommended, please be cautious as you are still young and your skin is sensitive.");
+		}
+		
+		else if(age>18&&age<40&&findKeyword(condition.toLowerCase(), "dry")>=0)
+		{
+			System.out.println("You have a dry skin type with " + concern);
+		}
+		
+		else if(age>40&&findKeyword(condition.toLowerCase(), "dry")>=0)
+		{
+			System.out.println("You have a dry skin type with " + concern +". For the products recommended, please be cautious as your skin has matured and your skin is sensitive. Look for products with anti-aging.");
+		}
+		
+		else if(age<=18&&findKeyword(condition.toLowerCase(), "none")>=0)
+		{
+			System.out.println("You have a normal skin type with " + concern +". For the products recommended, please be cautious as you are still young and your skin is sensitive.");
+		}
+		
+		else if(age>18&&age<40&&findKeyword(condition.toLowerCase(), "none")>=0)
+		{
+			System.out.println("You have a normal skin type with " + concern);
+		}
+		
+		else if(age>40&&findKeyword(condition.toLowerCase(), "none")>=0)
+		{
+			System.out.println("You have a normal skin type with " + concern +". For the products recommended, please be cautious as your skin has matured and your skin is sensitive. Look for products with anti-aging.");
+		}
+		
+		else if(age<=18&&findKeyword(condition.toLowerCase(), "both")>=0)
+		{
+			System.out.println("You have a combination skin type with " + concern +". For the products recommended, please be cautious as you are still young and your skin is sensitive. Also, the products mentioned will still work. Do not mix products based on different skin types.");
+		}
+		
+		else if(age>18&&age<40&&findKeyword(condition.toLowerCase(), "both")>=0)
+		{
+			System.out.println("You have a combination skin type with " + concern+ ". Also, the products mentioned will still work. Do not mix products based on different skin types.");
+		}
+		
+		else if(age>40&&findKeyword(condition.toLowerCase(), "both")>=0)
+		{
+			System.out.println("You have a combination skin type with " + concern +". For the products recommended, please be cautious as your skin has matured and your skin is sensitive. Look for products with anti-aging. Also, the products mentioned will still work. Do not mix products based on different skin types.");
+		}
+		return x;
+		
+	}
 	/**
 	 * Search for one word in phrase. The search is not case
 	 * sensitive. This method will check that the given goal
