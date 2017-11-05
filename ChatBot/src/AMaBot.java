@@ -9,7 +9,18 @@ import java.util.Scanner;
 public class AMaBot
 {
 	int emotion = 0;
-
+	
+	public String returnToMianMenu(String statement) { 
+		String[] closingResponse = {"bye","Bye", "want to leave","I'm out","main menu"};
+		String closure = "";
+		for(int i = 0; i< closingResponse.length; i++) {
+			if(findKeyword(statement, closingResponse[i]) >= 0) {
+				closure = "Bye";
+			}
+		}
+		return closure;
+	}
+	
 	public String getGreeting()
 	{
 		return "Hi there! I see you want to talk about games. Well I know a lot about games!";

@@ -10,7 +10,17 @@ public class LZouBot
 {
 
 	int emotion = 0;
-
+	
+	public String returnToMianMenu(String statement) { 
+		String[] closingResponse = {"bye","Bye", "want to leave","I'm out","main menu"};
+		String closure = "";
+		for(int i = 0; i< closingResponse.length; i++) {
+			if(findKeyword(statement, closingResponse[i]) >= 0) {
+				closure = "Bye";
+			}
+		}
+		return closure;
+	}
 	public String getGreeting()
 	{
 		return "Welcome to the Breakup Bot! ";
