@@ -11,8 +11,7 @@ public class ChatBotRunner
 	/**
 	 * Create instances of each chatbot, give it user input, and print its replies. Switch chatbot responses based on which chatbot the user is speaking too.
 	 */
-	
-	public static void main(String[] args)
+	  static void main(String[] args)
 	{
 		String statement = "";
 		System.out.println("Good Morning!");

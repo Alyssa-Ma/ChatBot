@@ -8,7 +8,7 @@ import java.util.Random;
 /**
  * A program to carry on conversations with a human user.
  * This version: The really mean and savage chat bot. Talk to it at your own risk.
- * @author Lily Li
+ * @author Lily Li 
  * @version October 30, 2017
  */
 public class LLiBot
