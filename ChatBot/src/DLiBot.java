@@ -10,7 +10,7 @@ public class DLiBot
 {
 	String product = "";
 	
-	public String returnToMainnMenu(String statement) { 
+	public String returnToMianMenu(String statement) { 
 		String[] closingResponse = {"bye","Bye", "want to leave","I'm out","main menu"};
 		String closure = "";
 		for(int i = 0; i< closingResponse.length; i++) {
@@ -39,12 +39,12 @@ public class DLiBot
 	
 	int age=0;
 	
-	public String getAge(int age)
+	public String getAge(String age)
 	{
 		String confirmation= "";
 		while(!confirmation.equals("yes"))
-			{	while(age!=(int)age||age<=0)
-				{System.out.println("Don't lie to me about your age. I want to help you, but you need to tell me your age.");}
+			{	//while(age!=(int)age||age<=0)
+				//{System.out.println("Don't lie to me about your age. I want to help you, but you need to tell me your age.");}
 				
 				System.out.println("You are " + age + ". Is this correct?");
 				Scanner confirmations = new Scanner(System.in);

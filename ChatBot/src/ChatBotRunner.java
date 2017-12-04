@@ -78,10 +78,19 @@ public class ChatBotRunner
 					System.out.println (chatbot2.Greeting());
 				    in = new Scanner (System.in);
 					statement = in.nextLine();
+					String statement2 = in.nextLine();
+					String statement3 = in.nextLine();
+					String statement4 = in.nextLine();
 					while (!closure.equals("Bye"))
 					{
-						System.out.println (chatbot2.getSkinCondition(statement));
-						statement = in.nextLine();
+						System.out.println (chatbot2.getName(statement));
+						statement2 = in.nextLine();
+						System.out.println (chatbot2.getAge(statement2));
+						statement3 = in.nextLine();
+						System.out.println (chatbot2.getSkinCondition(statement3));
+						statement4 = in.nextLine();
+						System.out.println (chatbot2.topConcern(statement4));
+						System.out.println (chatbot2.SkinDiagnosis());
 						closure = chatbot2.returnToMianMenu(statement);
 					}
 					break;	
